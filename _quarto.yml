@@ -1,0 +1,27 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "KAIST Deep Learning"
+  reader-mode: true
+  author: "Haseong"
+  date: "2024-11-11"
+  page-footer: 
+    left: | 
+      2024 lecture note written by Haseong Kim
+    right: | 
+      This book was built with Quarto
+  chapters:
+    - index.qmd
+    - day1_optimization.ipynb
+  
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

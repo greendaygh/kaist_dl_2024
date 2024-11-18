@@ -1,0 +1,14 @@
+---
+title: "Home"
+---
+
+# KAIST EB502 programming
+
+## Welcome
+
+-   2024.11 카이스트, 공학생물학대학원 프로그래밍 강의 노트
+-   Haseong Kim (at KRIBB)
+
+## 환경
+
+-   실습 환경은 colab을 활용하며 파일 저장 등은 구글 드라이브를 활용함
