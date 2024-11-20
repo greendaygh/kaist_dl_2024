@@ -214,6 +214,7 @@ window.Quarto = {
   <li><a href="#ordinary-least-sequare-ols" id="toc-ordinary-least-sequare-ols" class="nav-link" data-scroll-target="#ordinary-least-sequare-ols"><span class="header-section-number">2.0.4</span> Ordinary least sequare (OLS)</a></li>
   <li><a href="#maximum-likelihood-estimation-mle" id="toc-maximum-likelihood-estimation-mle" class="nav-link" data-scroll-target="#maximum-likelihood-estimation-mle"><span class="header-section-number">2.0.5</span> Maximum Likelihood Estimation (MLE)</a></li>
   <li><a href="#gradient-decent" id="toc-gradient-decent" class="nav-link" data-scroll-target="#gradient-decent"><span class="header-section-number">2.0.6</span> Gradient Decent</a></li>
+  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="header-section-number">2.0.7</span> Model fitting</a></li>
   </ul>
 </nav>
     </div>
@@ -767,34 +768,38 @@ y_i = b_0 + b_1 x_i  + \epsilon_i \text{ where } \epsilon_i \sim \text{ iid } N(
 <p><span class="math display">\[
 Y = X \beta + \epsilon
 \]</span></p>
-$$
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
 y_1 \\
 y_2 \\
 ... \\
 y_n
-\end{bmatrix}\]</span>
-<p>=</p>
-<span class="math display">\[\begin{pmatrix}
+\end{bmatrix}
+
+=
+
+\begin{pmatrix}
 1 \ \ x_1 \\
 1 \ \ x_2 \\
 ... \\
 1 \ \ x_n
-\end{pmatrix}\]</span>
-<span class="math display">\[\begin{pmatrix}
+\end{pmatrix}
+
+\begin{pmatrix}
 b_0 \\
 b_1
-\end{pmatrix}\]</span>
-<ul>
-<li></li>
-</ul>
-<span class="math display">\[\begin{pmatrix}
+\end{pmatrix}
+
++
+
+
+\begin{pmatrix}
 \epsilon_1 \\
 \epsilon_2 \\
 ... \\
 \epsilon_n
-\end{pmatrix}\]</span>
-<p>$$</p>
+\end{pmatrix}
+\end{equation}\]</span></p>
 <p><span class="math display">\[
 \mathbf{\epsilon} = Y - X\beta
 \]</span></p>
@@ -1156,9 +1161,23 @@ Iteration 100: beta = [2.96262018 3.80192916]</code></pre>
 <ul>
 <li>Gradient Descent is favored over MLE or OLS in scenarios involving <strong>large-scale data</strong>, <strong>high-dimensional features</strong>, <strong>non-linear models</strong>, or <strong>custom loss functions</strong> due to its flexibility, efficiency, and scalability. However, for simple, small-scale problems, OLS or MLE may still be preferred for their directness and precision.</li>
 </ul>
-
-
 </section>
+</section>
+<section id="model-fitting" class="level3" data-number="2.0.7">
+<h3 data-number="2.0.7" class="anchored" data-anchor-id="model-fitting"><span class="header-section-number">2.0.7</span> Model fitting</h3>
+<ul>
+<li>Finding parameters with LSE, MLE, and GD</li>
+<li>GD provides more flexible (non-linear) and scalable (high-dimentional data) way for modeling</li>
+<li>GD procedure
+<ul>
+<li>Set random initial parameters</li>
+<li>Compute gradient that reduces cost</li>
+<li>Parameter update until conversing</li>
+</ul></li>
+</ul>
+<p><img src="images/gd2.png" class="img-fluid"></p>
+
+
 </section>
 
 </main> <!-- /main -->
