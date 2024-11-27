@@ -188,10 +188,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#simulation-data-generation" id="toc-simulation-data-generation" class="nav-link" data-scroll-target="#simulation-data-generation"><span class="header-section-number">4.0.5</span> Simulation data generation</a></li>
   <li><a href="#dna-data-preprocessing" id="toc-dna-data-preprocessing" class="nav-link" data-scroll-target="#dna-data-preprocessing"><span class="header-section-number">4.0.6</span> DNA data preprocessing</a></li>
   <li><a href="#cnn-model-class" id="toc-cnn-model-class" class="nav-link" data-scroll-target="#cnn-model-class"><span class="header-section-number">4.0.7</span> CNN model class</a></li>
-  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="header-section-number">4.0.8</span> training</a></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="header-section-number">4.0.8</span> Training</a></li>
   <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">4.0.9</span> Model evaluation</a></li>
-  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">4.0.10</span> Prediction</a></li>
-  <li><a href="#prediction-1" id="toc-prediction-1" class="nav-link" data-scroll-target="#prediction-1"><span class="header-section-number">4.0.11</span> Prediction</a></li>
+  <li><a href="#training-and-evaluation" id="toc-training-and-evaluation" class="nav-link" data-scroll-target="#training-and-evaluation"><span class="header-section-number">4.0.10</span> Training and evaluation</a></li>
   </ul>
 </nav>
     </div>
@@ -252,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>“C” → [0, 1, 0, 0]</li>
 </ul></li>
 </ul>
-<div id="cell-4" class="cell" data-executioninfo="{&quot;elapsed&quot;:364,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718611149169,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="ba81a254-f3b1-4363-a80b-6fe80bd66b07" data-execution_count="21">
+<div id="cell-4" class="cell" data-executioninfo="{&quot;elapsed&quot;:364,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718611149169,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="ba81a254-f3b1-4363-a80b-6fe80bd66b07" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>my_string<span class="op">=</span><span class="st">"ATACAA"</span></span>
@@ -310,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         [0., 0., 0., 0., 0.]]])</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-executioninfo="{&quot;elapsed&quot;:644,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718613208155,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="c7c8132e-a663-4d72-92cc-99c1c35daae9" data-execution_count="31">
+<div id="cell-8" class="cell" data-executioninfo="{&quot;elapsed&quot;:644,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718613208155,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="c7c8132e-a663-4d72-92cc-99c1c35daae9" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>onehot_encode <span class="op">=</span> np.zeros((<span class="bu">len</span>(my_array),<span class="dv">4</span>), dtype<span class="op">=</span><span class="bu">int</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>base_dict <span class="op">=</span> {<span class="st">"A"</span>:<span class="dv">0</span>, <span class="st">"C"</span>:<span class="dv">1</span>, <span class="st">"G"</span>:<span class="dv">2</span>, <span class="st">"T"</span>:<span class="dv">3</span>}</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(my_array)):</span>
@@ -335,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Understanding the concepts of PFM (Position Frequency Matrix) and PWM (Position Weight Matrix) is essential.</li>
 <li>Assuming an alignment of several sequences, the PFM represents the frequency of each nucleotide (A, T, G, C) at specific positions in the sequences, while the PWM represents the proportion of each nucleotide at those positions.</li>
 </ul>
-<div id="cell-10" class="cell" data-executioninfo="{&quot;elapsed&quot;:532,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718614750161,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="449e3397-7aed-4272-8737-9896233f5e45" data-execution_count="32">
+<div id="cell-10" class="cell" data-executioninfo="{&quot;elapsed&quot;:532,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718614750161,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="449e3397-7aed-4272-8737-9896233f5e45" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> motifs</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -381,7 +380,7 @@ T:   0.70   0.10   0.10   0.10   0.10
 <li>The resulting scalar value indicates the similarity between the sequence and the motif. Theoretically, a value of 0 implies an identical sequence match to the motif.</li>
 </ul></li>
 </ul>
-<div id="cell-15" class="cell" data-executioninfo="{&quot;elapsed&quot;:400,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718615793292,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="b174a1d2-8526-44f7-d48a-e536955392b6" data-execution_count="33">
+<div id="cell-15" class="cell" data-executioninfo="{&quot;elapsed&quot;:400,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718615793292,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="b174a1d2-8526-44f7-d48a-e536955392b6" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pwm_arr <span class="op">=</span> np.array(<span class="bu">list</span>(pwm.values())).transpose()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pwm_arr.shape)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -433,7 +432,7 @@ T:   0.70   0.10   0.10   0.10   0.10
 <section id="simulation-data-generation" class="level3" data-number="4.0.5">
 <h3 data-number="4.0.5" class="anchored" data-anchor-id="simulation-data-generation"><span class="header-section-number">4.0.5</span> Simulation data generation</h3>
 <p>Generate 1,000 simulated positive sequences by embedding a motif in the middle of the sequences, and 1,000 negative sequences with random DNA sequences.</p>
-<div id="cell-20" class="cell" data-executioninfo="{&quot;elapsed&quot;:551,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616329999,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="5308cbe2-4126-4bbe-fb35-fced89858523" data-execution_count="9">
+<div id="cell-20" class="cell" data-executioninfo="{&quot;elapsed&quot;:551,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616329999,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="5308cbe2-4126-4bbe-fb35-fced89858523" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>seq_length <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>num_sample <span class="op">=</span> <span class="dv">1000</span></span>
@@ -457,22 +456,22 @@ T:   0.70   0.10   0.10   0.10   0.10
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>['CAGGTGGCCGGATTCTAGCA',
- 'TCGACTTGCGGAACAGGTTC',
- 'AGACGGGCCGGAACATAGTC',
- 'CTTAGCGCCGGATCTACCCG']</code></pre>
+<pre><code>['CTAAAGACCGGAACAAAATG',
+ 'TGGTGCGCCGGAAATGCGTG',
+ 'CAACGTGACTGAATATCTCG',
+ 'TCCGTCCGCGGAAACAGAGC']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>['CTGTCACGCACGATCCGAAA',
- 'GGTGCCAAAGTAGAACGGAA',
- 'CCACGGTATTCTGCAACCCA',
- 'AAGCGAGGTTAACTACGAGC']</code></pre>
+<pre><code>['TGTAAGCAATGCGTCTTGCG',
+ 'CTCGGCTTATCAGGACGATG',
+ 'GGCTTGTATCAGCTAGTCTA',
+ 'GGTGTGAGGGTGTCACCGTG']</code></pre>
 </div>
 </div>
 </section>
 <section id="dna-data-preprocessing" class="level3" data-number="4.0.6">
 <h3 data-number="4.0.6" class="anchored" data-anchor-id="dna-data-preprocessing"><span class="header-section-number">4.0.6</span> DNA data preprocessing</h3>
-<div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:571,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616340829,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="1b21955b-952e-492e-ac35-2005af2426fa" data-execution_count="10">
+<div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:571,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616340829,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="1b21955b-952e-492e-ac35-2005af2426fa" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>base_dict <span class="op">=</span> {<span class="st">'A'</span>:<span class="dv">0</span>, <span class="st">'C'</span>:<span class="dv">1</span>, <span class="st">'G'</span>:<span class="dv">2</span>, <span class="st">'T'</span>:<span class="dv">3</span>}</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># response variable for pos</span></span>
@@ -506,7 +505,7 @@ T:   0.70   0.10   0.10   0.10   0.10
 <ul>
 <li>PyTorch Conv1d requires [batch_size, channels, length] so transpose(1,2) excuted</li>
 </ul>
-<div id="cell-24" class="cell" data-executioninfo="{&quot;elapsed&quot;:548,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616362356,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="0481cce5-7585-4ba5-a715-728681c165a7" data-execution_count="12">
+<div id="cell-24" class="cell" data-executioninfo="{&quot;elapsed&quot;:548,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616362356,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="0481cce5-7585-4ba5-a715-728681c165a7" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> TensorDataset, DataLoader</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
@@ -536,7 +535,7 @@ torch.Size([1600, 4, 20])
 torch.Size([1600, 2])</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-executioninfo="{&quot;elapsed&quot;:610,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616374501,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="4ba6d7d9-42d0-42ac-e404-39002de8e4a2" data-execution_count="13">
+<div id="cell-25" class="cell" data-executioninfo="{&quot;elapsed&quot;:610,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616374501,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="4ba6d7d9-42d0-42ac-e404-39002de8e4a2" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>X_torch <span class="op">=</span> torch.tensor(X_train, dtype<span class="op">=</span>torch.float32)</span>
@@ -545,14 +544,14 @@ torch.Size([1600, 2])</code></pre>
 <pre><code>torch.Size([1600, 4, 20])</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_617536/3124571761.py:3: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+<pre><code>/tmp/ipykernel_2688/3124571761.py:3: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   X_torch = torch.tensor(X_train, dtype=torch.float32)</code></pre>
 </div>
 </div>
 </section>
 <section id="cnn-model-class" class="level3" data-number="4.0.7">
 <h3 data-number="4.0.7" class="anchored" data-anchor-id="cnn-model-class"><span class="header-section-number">4.0.7</span> CNN model class</h3>
-<div id="cell-27" class="cell" data-executioninfo="{&quot;elapsed&quot;:391,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616387856,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="8394d97a-bb14-4e7b-c02c-976f8835f870" data-execution_count="15">
+<div id="cell-27" class="cell" data-executioninfo="{&quot;elapsed&quot;:391,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616387856,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="8394d97a-bb14-4e7b-c02c-976f8835f870" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -615,8 +614,8 @@ Estimated Total Size (MB): 0.05
 </div>
 </section>
 <section id="training" class="level3" data-number="4.0.8">
-<h3 data-number="4.0.8" class="anchored" data-anchor-id="training"><span class="header-section-number">4.0.8</span> training</h3>
-<div id="cell-29" class="cell" data-executioninfo="{&quot;elapsed&quot;:2915,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617108099,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="96aea657-d7d9-4569-881a-e3c256d7cd94" data-execution_count="16">
+<h3 data-number="4.0.8" class="anchored" data-anchor-id="training"><span class="header-section-number">4.0.8</span> Training</h3>
+<div id="cell-29" class="cell" data-executioninfo="{&quot;elapsed&quot;:2915,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617108099,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="96aea657-d7d9-4569-881a-e3c256d7cd94" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 훈련 루프</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
@@ -636,26 +635,26 @@ Estimated Total Size (MB): 0.05
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Epoch [</span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>num_epochs<span class="sc">}</span><span class="ss">], Loss: </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch [1/20], Loss: 0.5252
-Epoch [2/20], Loss: 0.2159
-Epoch [3/20], Loss: 0.0913
-Epoch [4/20], Loss: 0.0608
-Epoch [5/20], Loss: 0.0462
-Epoch [6/20], Loss: 0.0589
-Epoch [7/20], Loss: 0.1240
-Epoch [8/20], Loss: 0.0366
-Epoch [9/20], Loss: 0.0820
-Epoch [10/20], Loss: 0.0629
-Epoch [11/20], Loss: 0.0405
-Epoch [12/20], Loss: 0.0538
-Epoch [13/20], Loss: 0.0198
-Epoch [14/20], Loss: 0.0228
-Epoch [15/20], Loss: 0.0570
-Epoch [16/20], Loss: 0.0315
-Epoch [17/20], Loss: 0.0680
-Epoch [18/20], Loss: 0.1277
-Epoch [19/20], Loss: 0.0137
-Epoch [20/20], Loss: 0.0320</code></pre>
+<pre><code>Epoch [1/20], Loss: 0.5050
+Epoch [2/20], Loss: 0.2472
+Epoch [3/20], Loss: 0.1437
+Epoch [4/20], Loss: 0.0821
+Epoch [5/20], Loss: 0.0966
+Epoch [6/20], Loss: 0.0719
+Epoch [7/20], Loss: 0.0729
+Epoch [8/20], Loss: 0.0387
+Epoch [9/20], Loss: 0.1018
+Epoch [10/20], Loss: 0.1520
+Epoch [11/20], Loss: 0.0712
+Epoch [12/20], Loss: 0.0277
+Epoch [13/20], Loss: 0.0272
+Epoch [14/20], Loss: 0.0318
+Epoch [15/20], Loss: 0.0215
+Epoch [16/20], Loss: 0.0464
+Epoch [17/20], Loss: 0.0975
+Epoch [18/20], Loss: 0.0566
+Epoch [19/20], Loss: 0.0191
+Epoch [20/20], Loss: 0.0516</code></pre>
 </div>
 </div>
 </section>
@@ -685,9 +684,9 @@ Epoch [20/20], Loss: 0.0320</code></pre>
 </div>
 </div>
 </section>
-<section id="prediction" class="level3" data-number="4.0.10">
-<h3 data-number="4.0.10" class="anchored" data-anchor-id="prediction"><span class="header-section-number">4.0.10</span> Prediction</h3>
-<div id="cell-33" class="cell" data-executioninfo="{&quot;elapsed&quot;:25207,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617527334,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="73928f73-3d07-43b9-dbc9-bcded72386d8" data-execution_count="18">
+<section id="training-and-evaluation" class="level3" data-number="4.0.10">
+<h3 data-number="4.0.10" class="anchored" data-anchor-id="training-and-evaluation"><span class="header-section-number">4.0.10</span> Training and evaluation</h3>
+<div id="cell-33" class="cell" data-executioninfo="{&quot;elapsed&quot;:25207,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617527334,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="73928f73-3d07-43b9-dbc9-bcded72386d8" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 저장을 위한 리스트 초기화</span></span>
@@ -753,158 +752,158 @@ Epoch [20/20], Loss: 0.0320</code></pre>
 <span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch [1/200], Loss: 0.0370, Accuracy: 97.25%
-Epoch [2/200], Loss: 0.0413, Accuracy: 98.00%
-Epoch [3/200], Loss: 0.0376, Accuracy: 97.75%
-Epoch [4/200], Loss: 0.0344, Accuracy: 97.75%
-Epoch [5/200], Loss: 0.0334, Accuracy: 97.25%
-Epoch [6/200], Loss: 0.0333, Accuracy: 97.75%
-Epoch [7/200], Loss: 0.0338, Accuracy: 98.00%
-Epoch [8/200], Loss: 0.0324, Accuracy: 97.25%
-Epoch [9/200], Loss: 0.0289, Accuracy: 97.75%
-Epoch [10/200], Loss: 0.0282, Accuracy: 97.75%
-Epoch [11/200], Loss: 0.0297, Accuracy: 98.25%
-Epoch [12/200], Loss: 0.0283, Accuracy: 97.25%
-Epoch [13/200], Loss: 0.0247, Accuracy: 97.50%
-Epoch [14/200], Loss: 0.0233, Accuracy: 97.25%
-Epoch [15/200], Loss: 0.0246, Accuracy: 97.25%
-Epoch [16/200], Loss: 0.0223, Accuracy: 97.75%
-Epoch [17/200], Loss: 0.0190, Accuracy: 97.75%
-Epoch [18/200], Loss: 0.0182, Accuracy: 97.50%
-Epoch [19/200], Loss: 0.0168, Accuracy: 97.75%
-Epoch [20/200], Loss: 0.0162, Accuracy: 97.50%
-Epoch [21/200], Loss: 0.0152, Accuracy: 97.75%
-Epoch [22/200], Loss: 0.0141, Accuracy: 97.50%
-Epoch [23/200], Loss: 0.0164, Accuracy: 97.75%
-Epoch [24/200], Loss: 0.0138, Accuracy: 97.50%
-Epoch [25/200], Loss: 0.0124, Accuracy: 97.75%
-Epoch [26/200], Loss: 0.0119, Accuracy: 97.50%
-Epoch [27/200], Loss: 0.0105, Accuracy: 97.50%
-Epoch [28/200], Loss: 0.0136, Accuracy: 97.50%
-Epoch [29/200], Loss: 0.0087, Accuracy: 97.50%
-Epoch [30/200], Loss: 0.0089, Accuracy: 97.50%
-Epoch [31/200], Loss: 0.0084, Accuracy: 97.50%
-Epoch [32/200], Loss: 0.0071, Accuracy: 97.50%
-Epoch [33/200], Loss: 0.0066, Accuracy: 97.50%
-Epoch [34/200], Loss: 0.0068, Accuracy: 97.25%
-Epoch [35/200], Loss: 0.0065, Accuracy: 97.50%
-Epoch [36/200], Loss: 0.0059, Accuracy: 97.50%
-Epoch [37/200], Loss: 0.0054, Accuracy: 97.50%
-Epoch [38/200], Loss: 0.0055, Accuracy: 97.00%
-Epoch [39/200], Loss: 0.0054, Accuracy: 97.50%
-Epoch [40/200], Loss: 0.0056, Accuracy: 97.00%
-Epoch [41/200], Loss: 0.0124, Accuracy: 97.00%
-Epoch [42/200], Loss: 0.0063, Accuracy: 97.25%
-Epoch [43/200], Loss: 0.0044, Accuracy: 97.25%
-Epoch [44/200], Loss: 0.0040, Accuracy: 97.00%
-Epoch [45/200], Loss: 0.0032, Accuracy: 97.25%
-Epoch [46/200], Loss: 0.0034, Accuracy: 97.00%
-Epoch [47/200], Loss: 0.0037, Accuracy: 97.25%
-Epoch [48/200], Loss: 0.0032, Accuracy: 97.50%
-Epoch [49/200], Loss: 0.0031, Accuracy: 97.25%
-Epoch [50/200], Loss: 0.0025, Accuracy: 97.75%
-Epoch [51/200], Loss: 0.0026, Accuracy: 97.25%
-Epoch [52/200], Loss: 0.0024, Accuracy: 97.50%
-Epoch [53/200], Loss: 0.0024, Accuracy: 97.50%
-Epoch [54/200], Loss: 0.0021, Accuracy: 97.50%
-Epoch [55/200], Loss: 0.0024, Accuracy: 97.25%
-Epoch [56/200], Loss: 0.0021, Accuracy: 97.25%
-Epoch [57/200], Loss: 0.0021, Accuracy: 97.25%
-Epoch [58/200], Loss: 0.0020, Accuracy: 97.50%
-Epoch [59/200], Loss: 0.0017, Accuracy: 97.50%
-Epoch [60/200], Loss: 0.0018, Accuracy: 97.50%
-Epoch [61/200], Loss: 0.0019, Accuracy: 97.50%
-Epoch [62/200], Loss: 0.0016, Accuracy: 97.50%
-Epoch [63/200], Loss: 0.0017, Accuracy: 97.50%
-Epoch [64/200], Loss: 0.0015, Accuracy: 97.50%
-Epoch [65/200], Loss: 0.0012, Accuracy: 97.25%
-Epoch [66/200], Loss: 0.0014, Accuracy: 97.25%
-Epoch [67/200], Loss: 0.0012, Accuracy: 97.25%
-Epoch [68/200], Loss: 0.0013, Accuracy: 97.25%
-Epoch [69/200], Loss: 0.0011, Accuracy: 97.25%
-Epoch [70/200], Loss: 0.0010, Accuracy: 97.25%
-Epoch [71/200], Loss: 0.0011, Accuracy: 97.25%
-Epoch [72/200], Loss: 0.0010, Accuracy: 97.25%
-Epoch [73/200], Loss: 0.0010, Accuracy: 97.25%
-Epoch [74/200], Loss: 0.0009, Accuracy: 97.25%
-Epoch [75/200], Loss: 0.0009, Accuracy: 97.25%
-Epoch [76/200], Loss: 0.0009, Accuracy: 97.50%
-Epoch [77/200], Loss: 0.0009, Accuracy: 97.25%
-Epoch [78/200], Loss: 0.0008, Accuracy: 97.25%
-Epoch [79/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [80/200], Loss: 0.0009, Accuracy: 97.50%
-Epoch [81/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [82/200], Loss: 0.0007, Accuracy: 97.25%
-Epoch [83/200], Loss: 0.0007, Accuracy: 97.25%
-Epoch [84/200], Loss: 0.0007, Accuracy: 97.25%
-Epoch [85/200], Loss: 0.0007, Accuracy: 97.50%
-Epoch [86/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [87/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [88/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [89/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [90/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [91/200], Loss: 0.0006, Accuracy: 97.25%
-Epoch [92/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [93/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [94/200], Loss: 0.0005, Accuracy: 97.25%
-Epoch [95/200], Loss: 0.0005, Accuracy: 97.25%
-Epoch [96/200], Loss: 0.0005, Accuracy: 97.25%
-Epoch [97/200], Loss: 0.0005, Accuracy: 97.25%
-Epoch [98/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [99/200], Loss: 0.0004, Accuracy: 97.25%
-Epoch [100/200], Loss: 0.0004, Accuracy: 97.25%
-Epoch [101/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [102/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [103/200], Loss: 0.0004, Accuracy: 97.25%
-Epoch [104/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [105/200], Loss: 0.0004, Accuracy: 97.25%
-Epoch [106/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [107/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [108/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [109/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [110/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [111/200], Loss: 0.0003, Accuracy: 97.50%
+<pre><code>Epoch [1/200], Loss: 0.5790, Accuracy: 95.00%
+Epoch [2/200], Loss: 0.3117, Accuracy: 96.25%
+Epoch [3/200], Loss: 0.1510, Accuracy: 98.00%
+Epoch [4/200], Loss: 0.0968, Accuracy: 97.75%
+Epoch [5/200], Loss: 0.0771, Accuracy: 98.00%
+Epoch [6/200], Loss: 0.0696, Accuracy: 97.25%
+Epoch [7/200], Loss: 0.0605, Accuracy: 98.00%
+Epoch [8/200], Loss: 0.0557, Accuracy: 98.00%
+Epoch [9/200], Loss: 0.0577, Accuracy: 98.25%
+Epoch [10/200], Loss: 0.0551, Accuracy: 97.75%
+Epoch [11/200], Loss: 0.0476, Accuracy: 98.50%
+Epoch [12/200], Loss: 0.0437, Accuracy: 97.50%
+Epoch [13/200], Loss: 0.0409, Accuracy: 98.00%
+Epoch [14/200], Loss: 0.0382, Accuracy: 98.00%
+Epoch [15/200], Loss: 0.0367, Accuracy: 97.50%
+Epoch [16/200], Loss: 0.0407, Accuracy: 98.00%
+Epoch [17/200], Loss: 0.0345, Accuracy: 98.00%
+Epoch [18/200], Loss: 0.0343, Accuracy: 98.00%
+Epoch [19/200], Loss: 0.0342, Accuracy: 97.50%
+Epoch [20/200], Loss: 0.0363, Accuracy: 97.50%
+Epoch [21/200], Loss: 0.0305, Accuracy: 98.00%
+Epoch [22/200], Loss: 0.0271, Accuracy: 98.00%
+Epoch [23/200], Loss: 0.0275, Accuracy: 98.00%
+Epoch [24/200], Loss: 0.0250, Accuracy: 98.00%
+Epoch [25/200], Loss: 0.0278, Accuracy: 97.75%
+Epoch [26/200], Loss: 0.0234, Accuracy: 98.00%
+Epoch [27/200], Loss: 0.0214, Accuracy: 97.75%
+Epoch [28/200], Loss: 0.0225, Accuracy: 97.50%
+Epoch [29/200], Loss: 0.0213, Accuracy: 97.25%
+Epoch [30/200], Loss: 0.0199, Accuracy: 97.50%
+Epoch [31/200], Loss: 0.0189, Accuracy: 97.50%
+Epoch [32/200], Loss: 0.0169, Accuracy: 97.00%
+Epoch [33/200], Loss: 0.0186, Accuracy: 97.75%
+Epoch [34/200], Loss: 0.0185, Accuracy: 97.00%
+Epoch [35/200], Loss: 0.0149, Accuracy: 98.00%
+Epoch [36/200], Loss: 0.0147, Accuracy: 97.50%
+Epoch [37/200], Loss: 0.0142, Accuracy: 97.00%
+Epoch [38/200], Loss: 0.0131, Accuracy: 97.50%
+Epoch [39/200], Loss: 0.0139, Accuracy: 97.50%
+Epoch [40/200], Loss: 0.0126, Accuracy: 97.75%
+Epoch [41/200], Loss: 0.0120, Accuracy: 97.75%
+Epoch [42/200], Loss: 0.0099, Accuracy: 97.75%
+Epoch [43/200], Loss: 0.0114, Accuracy: 97.50%
+Epoch [44/200], Loss: 0.0092, Accuracy: 97.75%
+Epoch [45/200], Loss: 0.0086, Accuracy: 97.50%
+Epoch [46/200], Loss: 0.0077, Accuracy: 97.50%
+Epoch [47/200], Loss: 0.0072, Accuracy: 97.25%
+Epoch [48/200], Loss: 0.0088, Accuracy: 97.50%
+Epoch [49/200], Loss: 0.0095, Accuracy: 97.25%
+Epoch [50/200], Loss: 0.0083, Accuracy: 97.00%
+Epoch [51/200], Loss: 0.0065, Accuracy: 97.25%
+Epoch [52/200], Loss: 0.0061, Accuracy: 97.50%
+Epoch [53/200], Loss: 0.0049, Accuracy: 97.50%
+Epoch [54/200], Loss: 0.0058, Accuracy: 97.50%
+Epoch [55/200], Loss: 0.0043, Accuracy: 97.50%
+Epoch [56/200], Loss: 0.0043, Accuracy: 97.75%
+Epoch [57/200], Loss: 0.0043, Accuracy: 97.75%
+Epoch [58/200], Loss: 0.0040, Accuracy: 97.50%
+Epoch [59/200], Loss: 0.0034, Accuracy: 97.50%
+Epoch [60/200], Loss: 0.0040, Accuracy: 97.50%
+Epoch [61/200], Loss: 0.0038, Accuracy: 97.50%
+Epoch [62/200], Loss: 0.0034, Accuracy: 97.50%
+Epoch [63/200], Loss: 0.0028, Accuracy: 97.50%
+Epoch [64/200], Loss: 0.0027, Accuracy: 97.50%
+Epoch [65/200], Loss: 0.0025, Accuracy: 97.75%
+Epoch [66/200], Loss: 0.0024, Accuracy: 97.50%
+Epoch [67/200], Loss: 0.0023, Accuracy: 97.75%
+Epoch [68/200], Loss: 0.0024, Accuracy: 97.75%
+Epoch [69/200], Loss: 0.0025, Accuracy: 97.50%
+Epoch [70/200], Loss: 0.0020, Accuracy: 97.50%
+Epoch [71/200], Loss: 0.0018, Accuracy: 97.50%
+Epoch [72/200], Loss: 0.0019, Accuracy: 97.50%
+Epoch [73/200], Loss: 0.0018, Accuracy: 97.50%
+Epoch [74/200], Loss: 0.0017, Accuracy: 97.50%
+Epoch [75/200], Loss: 0.0015, Accuracy: 97.50%
+Epoch [76/200], Loss: 0.0016, Accuracy: 97.50%
+Epoch [77/200], Loss: 0.0016, Accuracy: 97.50%
+Epoch [78/200], Loss: 0.0014, Accuracy: 97.50%
+Epoch [79/200], Loss: 0.0013, Accuracy: 97.50%
+Epoch [80/200], Loss: 0.0014, Accuracy: 97.50%
+Epoch [81/200], Loss: 0.0013, Accuracy: 97.50%
+Epoch [82/200], Loss: 0.0012, Accuracy: 97.50%
+Epoch [83/200], Loss: 0.0012, Accuracy: 97.50%
+Epoch [84/200], Loss: 0.0012, Accuracy: 97.75%
+Epoch [85/200], Loss: 0.0011, Accuracy: 97.50%
+Epoch [86/200], Loss: 0.0010, Accuracy: 97.50%
+Epoch [87/200], Loss: 0.0010, Accuracy: 97.50%
+Epoch [88/200], Loss: 0.0010, Accuracy: 97.50%
+Epoch [89/200], Loss: 0.0009, Accuracy: 97.50%
+Epoch [90/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [91/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [92/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [93/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [94/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [95/200], Loss: 0.0008, Accuracy: 97.50%
+Epoch [96/200], Loss: 0.0007, Accuracy: 97.50%
+Epoch [97/200], Loss: 0.0007, Accuracy: 97.50%
+Epoch [98/200], Loss: 0.0007, Accuracy: 97.50%
+Epoch [99/200], Loss: 0.0006, Accuracy: 97.50%
+Epoch [100/200], Loss: 0.0006, Accuracy: 97.50%
+Epoch [101/200], Loss: 0.0006, Accuracy: 97.50%
+Epoch [102/200], Loss: 0.0006, Accuracy: 97.50%
+Epoch [103/200], Loss: 0.0006, Accuracy: 97.50%
+Epoch [104/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [105/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [106/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [107/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [108/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [109/200], Loss: 0.0005, Accuracy: 97.50%
+Epoch [110/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [111/200], Loss: 0.0005, Accuracy: 97.50%
 Epoch [112/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [113/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [114/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [115/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [116/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [117/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [118/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [119/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [120/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [121/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [122/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [123/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [124/200], Loss: 0.0003, Accuracy: 97.25%
-Epoch [125/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [126/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [127/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [128/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [129/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [130/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [131/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [132/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [133/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [134/200], Loss: 0.0002, Accuracy: 97.25%
+Epoch [113/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [114/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [115/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [116/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [117/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [118/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [119/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [120/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [121/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [122/200], Loss: 0.0004, Accuracy: 97.50%
+Epoch [123/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [124/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [125/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [126/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [127/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [128/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [129/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [130/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [131/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [132/200], Loss: 0.0003, Accuracy: 97.50%
+Epoch [133/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [134/200], Loss: 0.0002, Accuracy: 97.50%
 Epoch [135/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [136/200], Loss: 0.0002, Accuracy: 97.25%
+Epoch [136/200], Loss: 0.0002, Accuracy: 97.50%
 Epoch [137/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [138/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [139/200], Loss: 0.0002, Accuracy: 97.25%
+Epoch [138/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [139/200], Loss: 0.0002, Accuracy: 97.50%
 Epoch [140/200], Loss: 0.0002, Accuracy: 97.50%
 Epoch [141/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [142/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [143/200], Loss: 0.0002, Accuracy: 97.25%
-Epoch [144/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [145/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [146/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [147/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [148/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [149/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [150/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [151/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [152/200], Loss: 0.0001, Accuracy: 97.50%
+Epoch [142/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [143/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [144/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [145/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [146/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [147/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [148/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [149/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [150/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [151/200], Loss: 0.0002, Accuracy: 97.50%
+Epoch [152/200], Loss: 0.0002, Accuracy: 97.50%
 Epoch [153/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [154/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [155/200], Loss: 0.0001, Accuracy: 97.50%
@@ -916,7 +915,7 @@ Epoch [160/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [161/200], Loss: 0.0001, Accuracy: 97.25%
 Epoch [162/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [163/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [164/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [164/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [165/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [166/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [167/200], Loss: 0.0001, Accuracy: 97.50%
@@ -926,33 +925,33 @@ Epoch [170/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [171/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [172/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [173/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [174/200], Loss: 0.0001, Accuracy: 97.50%
+Epoch [174/200], Loss: 0.0001, Accuracy: 97.25%
 Epoch [175/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [176/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [177/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [178/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [179/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [180/200], Loss: 0.0001, Accuracy: 97.50%
+Epoch [176/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [177/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [178/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [179/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [180/200], Loss: 0.0001, Accuracy: 97.25%
 Epoch [181/200], Loss: 0.0001, Accuracy: 97.50%
 Epoch [182/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [183/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [184/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [185/200], Loss: 0.0001, Accuracy: 97.50%
+Epoch [183/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [184/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [185/200], Loss: 0.0001, Accuracy: 97.25%
 Epoch [186/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [187/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [188/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [189/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [190/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [191/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [192/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [193/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [194/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [195/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [196/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [197/200], Loss: 0.0001, Accuracy: 97.50%
+Epoch [187/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [188/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [189/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [190/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [191/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [192/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [193/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [194/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [195/200], Loss: 0.0001, Accuracy: 97.00%
+Epoch [196/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [197/200], Loss: 0.0001, Accuracy: 97.00%
 Epoch [198/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [199/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [200/200], Loss: 0.0001, Accuracy: 97.50%</code></pre>
+Epoch [199/200], Loss: 0.0001, Accuracy: 97.25%
+Epoch [200/200], Loss: 0.0001, Accuracy: 97.00%</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -960,45 +959,6 @@ Epoch [200/200], Loss: 0.0001, Accuracy: 97.50%</code></pre>
 <p><img src="day3_cnn_dna_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-</div>
-</div>
-</section>
-<section id="prediction-1" class="level3" data-number="4.0.11">
-<h3 data-number="4.0.11" class="anchored" data-anchor-id="prediction-1"><span class="header-section-number">4.0.11</span> Prediction</h3>
-<div id="cell-35" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>torch.save(model.state_dict(), <span class="st">'model.pth'</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Model saved'</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 불러오기</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> DNA_CNN()</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(torch.load(<span class="st">'model.pth'</span>))</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 새로운 데이터에 대한 예측</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>new_data <span class="op">=</span> torch.tensor(X_test[:<span class="dv">5</span>], dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> torch.cuda.is_available():</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    new_data <span class="op">=</span> new_data.cuda()</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    outputs <span class="op">=</span> model(new_data)</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    _, predicted <span class="op">=</span> torch.<span class="bu">max</span>(outputs.data, <span class="dv">1</span>)</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(predicted)</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test[:<span class="dv">5</span>])</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Model saved</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_617536/4019452672.py:6: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  model.load_state_dict(torch.load('model.pth'))
-/tmp/ipykernel_617536/4019452672.py:10: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
-  new_data = torch.tensor(X_test[:5], dtype=torch.float32)</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>RuntimeError: Input type (torch.cuda.FloatTensor) and weight type (torch.FloatTensor) should be the same</code></pre>
 </div>
 </div>
 
