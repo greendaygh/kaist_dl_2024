@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>KAIST Deep Learning - 6&nbsp; Day5 Model Evaluation Metrics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./day4_cnn.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day5_model_evaluation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">KAIST Deep Learning</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day1_optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Day1 Optimization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day2_neural_networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Day2 Neural Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day3_cnn_dna.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day4_cnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day4 CNN with details</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day5_model_evaluation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link active" data-scroll-target="#basic-concepts"><span class="header-section-number">6.1</span> Basic Concepts</a></li>
+  <li><a href="#accuracy" id="toc-accuracy" class="nav-link" data-scroll-target="#accuracy"><span class="header-section-number">6.2</span> Accuracy</a></li>
+  <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision"><span class="header-section-number">6.3</span> Precision</a></li>
+  <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall"><span class="header-section-number">6.4</span> Recall</a>
+  <ul class="collapse">
+  <li><a href="#example-calculation" id="toc-example-calculation" class="nav-link" data-scroll-target="#example-calculation"><span class="header-section-number">6.4.1</span> <strong>5. Example Calculation</strong></a></li>
+  <li><a href="#advantages-of-recall" id="toc-advantages-of-recall" class="nav-link" data-scroll-target="#advantages-of-recall"><span class="header-section-number">6.4.2</span> <strong>6. Advantages of Recall</strong></a></li>
+  <li><a href="#disadvantages-of-recall" id="toc-disadvantages-of-recall" class="nav-link" data-scroll-target="#disadvantages-of-recall"><span class="header-section-number">6.4.3</span> <strong>7. Disadvantages of Recall</strong></a></li>
+  <li><a href="#use-cases-for-recall" id="toc-use-cases-for-recall" class="nav-link" data-scroll-target="#use-cases-for-recall"><span class="header-section-number">6.4.4</span> <strong>8. Use Cases for Recall</strong></a></li>
+  <li><a href="#recall-in-imbalanced-datasets" id="toc-recall-in-imbalanced-datasets" class="nav-link" data-scroll-target="#recall-in-imbalanced-datasets"><span class="header-section-number">6.4.5</span> <strong>9. Recall in Imbalanced Datasets</strong></a></li>
+  <li><a href="#python-code-example" id="toc-python-code-example" class="nav-link" data-scroll-target="#python-code-example"><span class="header-section-number">6.4.6</span> <strong>10. Python Code Example</strong></a></li>
+  <li><a href="#recall-vs-precision" id="toc-recall-vs-precision" class="nav-link" data-scroll-target="#recall-vs-precision"><span class="header-section-number">6.4.7</span> <strong>11. Recall vs Precision</strong></a></li>
+  <li><a href="#recall-vs-accuracy" id="toc-recall-vs-accuracy" class="nav-link" data-scroll-target="#recall-vs-accuracy"><span class="header-section-number">6.4.8</span> <strong>12. Recall vs Accuracy</strong></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.4.9</span> <strong>13. Summary</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="basic-concepts" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="basic-concepts"><span class="header-section-number">6.1</span> Basic Concepts</h2>
+<ul>
+<li>When evaluating a classification model, predictions are compared with the actual (ground truth) labels.</li>
+</ul>
+<section id="true-positive-tp" class="level4" data-number="6.1.0.1">
+<h4 data-number="6.1.0.1" class="anchored" data-anchor-id="true-positive-tp"><span class="header-section-number">6.1.0.1</span> True Positive (TP)</h4>
+<ul>
+<li>The model correctly predicts the positive class.
+<ul>
+<li>Actual: 1 (positive).</li>
+<li>Predicted: 1 (positive).</li>
+</ul></li>
+</ul>
+</section>
+<section id="false-positive-fp-type-i-error" class="level4" data-number="6.1.0.2">
+<h4 data-number="6.1.0.2" class="anchored" data-anchor-id="false-positive-fp-type-i-error"><span class="header-section-number">6.1.0.2</span> False Positive (FP) (Type I Error)</h4>
+<ul>
+<li>The model predicts the positive class, but the actual class is negative.
+<ul>
+<li>Actual: 0 (negative).</li>
+<li>Predicted: 1 (positive).</li>
+<li>In disease detection, marking a normal person as patient.</li>
+</ul></li>
+</ul>
+</section>
+<section id="true-negative-tn" class="level4" data-number="6.1.0.3">
+<h4 data-number="6.1.0.3" class="anchored" data-anchor-id="true-negative-tn"><span class="header-section-number">6.1.0.3</span> True Negative (TN)</h4>
+<ul>
+<li>The model correctly predicts the negative class.
+<ul>
+<li>Actual: 0 (negative).</li>
+<li>Predicted: 0 (negative).</li>
+</ul></li>
+<li>Indicates how well the model identifies the negative class.</li>
+</ul>
+</section>
+<section id="false-negative-fn-type-ii-error" class="level4" data-number="6.1.0.4">
+<h4 data-number="6.1.0.4" class="anchored" data-anchor-id="false-negative-fn-type-ii-error"><span class="header-section-number">6.1.0.4</span> False Negative (FN) (Type II Error)</h4>
+<ul>
+<li>The model predicts the negative class, but the actual class is positive.
+<ul>
+<li>Actual: 1 (positive).</li>
+<li>Predicted: 0 (negative).</li>
+<li>In disease detection, failing to identify a patient with the disease.</li>
+</ul></li>
+</ul>
+</section>
+<section id="confusion-matrix-from-wiki" class="level4" data-number="6.1.0.5">
+<h4 data-number="6.1.0.5" class="anchored" data-anchor-id="confusion-matrix-from-wiki"><span class="header-section-number">6.1.0.5</span> Confusion matrix from wiki</h4>
+<p><img src="images/confusion.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="accuracy" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="accuracy"><span class="header-section-number">6.2</span> Accuracy</h2>
+<ul>
+<li>Accuracy is one of the most straightforward and commonly used metrics to evaluate the performance of a classification model.</li>
+<li>It measures the proportion of correctly classified samples out of the total number of samples.</li>
+</ul>
+<p><span class="math display">\[
+\text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}
+\]</span></p>
+<p>In terms of the confusion matrix, accuracy can also be expressed as:</p>
+<p><span class="math display">\[
+\text{Accuracy} = \frac{\text{True Positives (TP)} + \text{True Negatives (TN)}}{\text{Total Number of Samples (TP + TN + FP + FN)}}
+\]</span></p>
+<ul>
+<li>Good
+<ul>
+<li>When the dataset is balanced, meaning the number of positive and negative samples is roughly equal.</li>
+<li>When all misclassification errors (false positives and false negatives) are equally costly.</li>
+<li>Easy to understand and implement.</li>
+<li>Works well for balanced datasets.</li>
+</ul></li>
+<li>No good
+<ul>
+<li>when the dataset is imbalanced:</li>
+<li>For example, if 95% of the samples belong to 1, a model that always predicts the majority class will achieve 95% accuracy, but this is misleading.</li>
+<li>Accuracy treats all errors equally, which is not suitable if false positives and false negatives have different costs.</li>
+</ul></li>
+</ul>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ground truth labels and model predictions</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">len</span>(y_pred)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>correct <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> yp)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> correct <span class="op">/</span> total</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_true, y_pred)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 80.00%
+Accuracy: 80.00%</code></pre>
+</div>
+</div>
+</section>
+<section id="precision" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="precision"><span class="header-section-number">6.3</span> Precision</h2>
+<ul>
+<li>A metric used to evaluate the performance of a classification model, particularly for the positive class.</li>
+<li>It measures the proportion of true positive predictions out of all the samples that were predicted as positive.</li>
+</ul>
+<p><span class="math display">\[
+\text{Precision} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Positives (FP)}}
+\]</span></p>
+<ul>
+<li><p>Precision is critical in scenarios where incorrectly predicting positives (FP) has significant consequences.</p></li>
+<li><p>High precision ensures the model is not making too many false positive predictions, thus reducing “false alarms.”</p></li>
+<li><p>Good</p>
+<ul>
+<li>Ensures positive predictions are reliable.</li>
+<li>Helps reduce “false alarms” in critical systems.</li>
+<li>Precision is especially useful for imbalanced datasets where the positive class is rare.</li>
+</ul></li>
+<li><p>No Good</p>
+<ul>
+<li>Precision does not account for cases where the model misses actual positives (FN).</li>
+<li>In situations where identifying all positives is crucial (e.g., disease detection), precision alone is insufficient.</li>
+</ul></li>
+</ul>
+<div id="cell-7" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># True labels</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>) <span class="op">/</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yp <span class="kw">in</span> y_pred <span class="cf">if</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute precision</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> precision_score(y_true, y_pred)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Precision: 80.00%
+Precision: 80.00%</code></pre>
+</div>
+</div>
+</section>
+<section id="recall" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="recall"><span class="header-section-number">6.4</span> Recall</h2>
+<ul>
+<li>A metric that measures the ability of a classification model to correctly identify all positive samples in the dataset.</li>
+<li>Known as sensitivity or true positive rate (TPR)</li>
+</ul>
+<p><span class="math display">\[
+\text{Recall} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
+\]</span></p>
+<ul>
+<li>Meaning: Of all the actual positive samples, how many did the model correctly identify?</li>
+<li>It focuses on the model’s ability to avoid missing true positives (false negatives).</li>
+<li>Recall is critical in scenarios where missing positive samples (FN) can have severe consequences.
+<ul>
+<li>Medical Diagnosis: Failing to identify a disease could lead to fatal consequences.</li>
+</ul></li>
+<li>Recall and precision often have a trade-off:
+<ul>
+<li>High recall increases false positives, lowering precision.</li>
+<li>High precision may miss true positives, lowering recall.</li>
+</ul></li>
+</ul>
+<hr>
+<section id="example-calculation" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="example-calculation"><span class="header-section-number">6.4.1</span> <strong>5. Example Calculation</strong></h3>
+<section id="confusion-matrix" class="level4" data-number="6.4.1.1">
+<h4 data-number="6.4.1.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">6.4.1.1</span> Confusion Matrix:</h4>
+[
+<span class="math display">\[\begin{bmatrix}
+\text{True Negatives (TN)} &amp; \text{False Positives (FP)} \\
+\text{False Negatives (FN)} &amp; \text{True Positives (TP)}
+\end{bmatrix}\]</span>
+=
+<span class="math display">\[\begin{bmatrix}
+50 &amp; 10 \\
+5 &amp; 35
+\end{bmatrix}\]</span>
+<p>]</p>
+</section>
+<section id="calculate-recall" class="level4" data-number="6.4.1.2">
+<h4 data-number="6.4.1.2" class="anchored" data-anchor-id="calculate-recall"><span class="header-section-number">6.4.1.2</span> Calculate Recall:</h4>
+<p>[ = = = = 0.875 , ( 87.5%) ]</p>
+<hr>
+</section>
+</section>
+<section id="advantages-of-recall" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="advantages-of-recall"><span class="header-section-number">6.4.2</span> <strong>6. Advantages of Recall</strong></h3>
+<ol type="1">
+<li><strong>Captures All Positives</strong>:
+<ul>
+<li>Recall ensures that the model does not miss positive samples.</li>
+</ul></li>
+<li><strong>Important in Costly Misses</strong>:
+<ul>
+<li>In applications like medical diagnosis, recall is a priority since false negatives are costly.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="disadvantages-of-recall" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="disadvantages-of-recall"><span class="header-section-number">6.4.3</span> <strong>7. Disadvantages of Recall</strong></h3>
+<ol type="1">
+<li><strong>Ignores False Positives</strong>:
+<ul>
+<li>Recall does not account for how many false positives the model predicts.</li>
+<li>This can lead to overly lenient models that classify many samples as positive to maximize recall.</li>
+</ul></li>
+<li><strong>Poor Choice for Applications Where Precision Matters</strong>:
+<ul>
+<li>In applications like spam detection, focusing solely on recall might result in excessive false positives (e.g., legitimate emails marked as spam).</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="use-cases-for-recall" class="level3" data-number="6.4.4">
+<h3 data-number="6.4.4" class="anchored" data-anchor-id="use-cases-for-recall"><span class="header-section-number">6.4.4</span> <strong>8. Use Cases for Recall</strong></h3>
+<section id="medical-diagnosis" class="level4" data-number="6.4.4.1">
+<h4 data-number="6.4.4.1" class="anchored" data-anchor-id="medical-diagnosis"><span class="header-section-number">6.4.4.1</span> <strong>Medical Diagnosis</strong>:</h4>
+<ul>
+<li><strong>Why</strong>:
+<ul>
+<li>False negatives mean undiagnosed patients, which can have serious consequences.</li>
+</ul></li>
+<li><strong>Goal</strong>:
+<ul>
+<li>High recall to ensure all patients with the disease are correctly identified.</li>
+</ul></li>
+</ul>
+</section>
+<section id="fraud-detection" class="level4" data-number="6.4.4.2">
+<h4 data-number="6.4.4.2" class="anchored" data-anchor-id="fraud-detection"><span class="header-section-number">6.4.4.2</span> <strong>Fraud Detection</strong>:</h4>
+<ul>
+<li><strong>Why</strong>:
+<ul>
+<li>Missing fraudulent transactions could lead to significant financial losses.</li>
+</ul></li>
+<li><strong>Goal</strong>:
+<ul>
+<li>High recall to flag as many fraudulent transactions as possible.</li>
+</ul></li>
+</ul>
+</section>
+<section id="search-engines" class="level4" data-number="6.4.4.3">
+<h4 data-number="6.4.4.3" class="anchored" data-anchor-id="search-engines"><span class="header-section-number">6.4.4.3</span> <strong>Search Engines</strong>:</h4>
+<ul>
+<li><strong>Why</strong>:
+<ul>
+<li>Ensure all relevant results are retrieved for a query.</li>
+</ul></li>
+<li><strong>Goal</strong>:
+<ul>
+<li>High recall to return all relevant documents, even at the cost of some irrelevant ones.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="recall-in-imbalanced-datasets" class="level3" data-number="6.4.5">
+<h3 data-number="6.4.5" class="anchored" data-anchor-id="recall-in-imbalanced-datasets"><span class="header-section-number">6.4.5</span> <strong>9. Recall in Imbalanced Datasets</strong></h3>
+<p>Recall is especially useful for <strong>imbalanced datasets</strong> where the positive class is rare. For example: - In disease detection, the number of positive cases (sick patients) is often much smaller than negative cases (healthy patients). Recall ensures that the model captures as many positive cases as possible.</p>
+<hr>
+</section>
+<section id="python-code-example" class="level3" data-number="6.4.6">
+<h3 data-number="6.4.6" class="anchored" data-anchor-id="python-code-example"><span class="header-section-number">6.4.6</span> <strong>10. Python Code Example</strong></h3>
+<section id="using-sklearn" class="level4" data-number="6.4.6.1">
+<h4 data-number="6.4.6.1" class="anchored" data-anchor-id="using-sklearn"><span class="header-section-number">6.4.6.1</span> <strong>Using <code>sklearn</code></strong></h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># True labels</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute recall</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> recall_score(y_true, y_pred)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="manual-calculation" class="level4" data-number="6.4.6.2">
+<h4 data-number="6.4.6.2" class="anchored" data-anchor-id="manual-calculation"><span class="header-section-number">6.4.6.2</span> <strong>Manual Calculation</strong></h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix components</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>TP <span class="op">=</span> <span class="dv">35</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>FN <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate recall</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FN)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="recall-vs-precision" class="level3" data-number="6.4.7">
+<h3 data-number="6.4.7" class="anchored" data-anchor-id="recall-vs-precision"><span class="header-section-number">6.4.7</span> <strong>11. Recall vs Precision</strong></h3>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 41%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Metric</strong></th>
+<th><strong>What It Measures</strong></th>
+<th><strong>Use Case</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Recall</strong></td>
+<td>How many actual positives were correctly identified.</td>
+<td>Useful when false negatives are costly.</td>
+</tr>
+<tr class="even">
+<td><strong>Precision</strong></td>
+<td>How many positive predictions are correct.</td>
+<td>Useful when false positives are costly.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="recall-vs-accuracy" class="level3" data-number="6.4.8">
+<h3 data-number="6.4.8" class="anchored" data-anchor-id="recall-vs-accuracy"><span class="header-section-number">6.4.8</span> <strong>12. Recall vs Accuracy</strong></h3>
+<section id="why-not-use-accuracy-instead" class="level4" data-number="6.4.8.1">
+<h4 data-number="6.4.8.1" class="anchored" data-anchor-id="why-not-use-accuracy-instead"><span class="header-section-number">6.4.8.1</span> Why Not Use Accuracy Instead?</h4>
+<p>Accuracy measures overall correctness but fails to account for the balance between true positives and false negatives, which is critical in recall-focused applications.</p>
+</section>
+<section id="example" class="level4" data-number="6.4.8.2">
+<h4 data-number="6.4.8.2" class="anchored" data-anchor-id="example"><span class="header-section-number">6.4.8.2</span> Example:</h4>
+<p>Consider a dataset with 99% negatives and 1% positives: - A model predicting all negatives achieves <strong>99% accuracy</strong>. - However, recall would be <strong>0%</strong> because it fails to identify any positives.</p>
+<hr>
+</section>
+</section>
+<section id="summary" class="level3" data-number="6.4.9">
+<h3 data-number="6.4.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.4.9</span> <strong>13. Summary</strong></h3>
+<table class="table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Aspect</strong></th>
+<th><strong>Recall</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Definition</strong></td>
+<td>The proportion of actual positives that are correctly predicted.</td>
+</tr>
+<tr class="even">
+<td><strong>Formula</strong></td>
+<td>( = )</td>
+</tr>
+<tr class="odd">
+<td><strong>Use Cases</strong></td>
+<td>Medical diagnosis, fraud detection, search engines.</td>
+</tr>
+<tr class="even">
+<td><strong>Strengths</strong></td>
+<td>Ensures no positive sample is missed; critical when false negatives are costly.</td>
+</tr>
+<tr class="odd">
+<td><strong>Weaknesses</strong></td>
+<td>Ignores false positives; can result in a high false alarm rate.</td>
+</tr>
+</tbody>
+</table>
+<p>Recall is crucial in applications where missing positive instances is significantly more harmful than identifying false positives. However, it is often used alongside precision or F1-score for a balanced evaluation.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./day4_cnn.html" class="pagination-link" aria-label="Day4 CNN with details">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Day4 CNN with details</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>2024 lecture note written by Haseong Kim</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
