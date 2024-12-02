@@ -225,18 +225,7 @@ window.Quarto = {
   <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link active" data-scroll-target="#basic-concepts"><span class="header-section-number">6.1</span> Basic Concepts</a></li>
   <li><a href="#accuracy" id="toc-accuracy" class="nav-link" data-scroll-target="#accuracy"><span class="header-section-number">6.2</span> Accuracy</a></li>
   <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision"><span class="header-section-number">6.3</span> Precision</a></li>
-  <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall"><span class="header-section-number">6.4</span> Recall</a>
-  <ul class="collapse">
-  <li><a href="#example-calculation" id="toc-example-calculation" class="nav-link" data-scroll-target="#example-calculation"><span class="header-section-number">6.4.1</span> <strong>5. Example Calculation</strong></a></li>
-  <li><a href="#advantages-of-recall" id="toc-advantages-of-recall" class="nav-link" data-scroll-target="#advantages-of-recall"><span class="header-section-number">6.4.2</span> <strong>6. Advantages of Recall</strong></a></li>
-  <li><a href="#disadvantages-of-recall" id="toc-disadvantages-of-recall" class="nav-link" data-scroll-target="#disadvantages-of-recall"><span class="header-section-number">6.4.3</span> <strong>7. Disadvantages of Recall</strong></a></li>
-  <li><a href="#use-cases-for-recall" id="toc-use-cases-for-recall" class="nav-link" data-scroll-target="#use-cases-for-recall"><span class="header-section-number">6.4.4</span> <strong>8. Use Cases for Recall</strong></a></li>
-  <li><a href="#recall-in-imbalanced-datasets" id="toc-recall-in-imbalanced-datasets" class="nav-link" data-scroll-target="#recall-in-imbalanced-datasets"><span class="header-section-number">6.4.5</span> <strong>9. Recall in Imbalanced Datasets</strong></a></li>
-  <li><a href="#python-code-example" id="toc-python-code-example" class="nav-link" data-scroll-target="#python-code-example"><span class="header-section-number">6.4.6</span> <strong>10. Python Code Example</strong></a></li>
-  <li><a href="#recall-vs-precision" id="toc-recall-vs-precision" class="nav-link" data-scroll-target="#recall-vs-precision"><span class="header-section-number">6.4.7</span> <strong>11. Recall vs Precision</strong></a></li>
-  <li><a href="#recall-vs-accuracy" id="toc-recall-vs-accuracy" class="nav-link" data-scroll-target="#recall-vs-accuracy"><span class="header-section-number">6.4.8</span> <strong>12. Recall vs Accuracy</strong></a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.4.9</span> <strong>13. Summary</strong></a></li>
-  </ul></li>
+  <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall"><span class="header-section-number">6.4</span> Recall</a></li>
   </ul>
 </nav>
     </div>
@@ -324,7 +313,9 @@ window.Quarto = {
 <p><span class="math display">\[
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}
 \]</span></p>
-<p>In terms of the confusion matrix, accuracy can also be expressed as:</p>
+<ul>
+<li>In terms of the confusion matrix, accuracy can also be expressed as:</li>
+</ul>
 <p><span class="math display">\[
 \text{Accuracy} = \frac{\text{True Positives (TP)} + \text{True Negatives (TN)}}{\text{Total Number of Samples (TP + TN + FP + FN)}}
 \]</span></p>
@@ -343,20 +334,22 @@ window.Quarto = {
 <li>Accuracy treats all errors equally, which is not suitable if false positives and false negatives have different costs.</li>
 </ul></li>
 </ul>
-<div id="cell-5" class="cell">
+<div id="cell-5" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ground truth labels and model predictions</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">len</span>(y_pred)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>correct <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> yp)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> correct <span class="op">/</span> total</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_true, y_pred)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>TP <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>TN <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>FP <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>FN <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> (TP <span class="op">+</span> TN) <span class="op">/</span> (TP <span class="op">+</span> TN <span class="op">+</span> FP <span class="op">+</span> FN)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_true, y_pred)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>accuracy <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy: 80.00%
 Accuracy: 80.00%</code></pre>
@@ -366,7 +359,7 @@ Accuracy: 80.00%</code></pre>
 <section id="precision" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="precision"><span class="header-section-number">6.3</span> Precision</h2>
 <ul>
-<li>A metric used to evaluate the performance of a classification model, particularly for the positive class.</li>
+<li><strong>Of all the samples predicted as positive, how many are truly positive?</strong></li>
 <li>It measures the proportion of true positive predictions out of all the samples that were predicted as positive.</li>
 </ul>
 <p><span class="math display">\[
@@ -387,7 +380,7 @@ Accuracy: 80.00%</code></pre>
 <li>In situations where identifying all positives is crucial (e.g., disease detection), precision alone is insufficient.</li>
 </ul></li>
 </ul>
-<div id="cell-7" class="cell" data-execution_count="16">
+<div id="cell-7" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -397,12 +390,14 @@ Accuracy: 80.00%</code></pre>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>) <span class="op">/</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yp <span class="kw">in</span> y_pred <span class="cf">if</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute precision</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> precision_score(y_true, y_pred)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>TP <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>FP <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FP)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute precision</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> precision_score(y_true, y_pred)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision <span class="op">*</span> <span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Precision: 80.00%
 Precision: 80.00%</code></pre>
@@ -412,14 +407,13 @@ Precision: 80.00%</code></pre>
 <section id="recall" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="recall"><span class="header-section-number">6.4</span> Recall</h2>
 <ul>
-<li>A metric that measures the ability of a classification model to correctly identify all positive samples in the dataset.</li>
+<li><strong>Of all the actual positive samples, how many did the model correctly identify?</strong></li>
 <li>Known as sensitivity or true positive rate (TPR)</li>
 </ul>
 <p><span class="math display">\[
 \text{Recall} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
 \]</span></p>
 <ul>
-<li>Meaning: Of all the actual positive samples, how many did the model correctly identify?</li>
 <li>It focuses on the model’s ability to avoid missing true positives (false negatives).</li>
 <li>Recall is critical in scenarios where missing positive samples (FN) can have severe consequences.
 <ul>
@@ -430,219 +424,45 @@ Precision: 80.00%</code></pre>
 <li>High recall increases false positives, lowering precision.</li>
 <li>High precision may miss true positives, lowering recall.</li>
 </ul></li>
-</ul>
-<hr>
-<section id="example-calculation" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="example-calculation"><span class="header-section-number">6.4.1</span> <strong>5. Example Calculation</strong></h3>
-<section id="confusion-matrix" class="level4" data-number="6.4.1.1">
-<h4 data-number="6.4.1.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">6.4.1.1</span> Confusion Matrix:</h4>
-[
-<span class="math display">\[\begin{bmatrix}
-\text{True Negatives (TN)} &amp; \text{False Positives (FP)} \\
-\text{False Negatives (FN)} &amp; \text{True Positives (TP)}
-\end{bmatrix}\]</span>
-=
-<span class="math display">\[\begin{bmatrix}
-50 &amp; 10 \\
-5 &amp; 35
-\end{bmatrix}\]</span>
-<p>]</p>
-</section>
-<section id="calculate-recall" class="level4" data-number="6.4.1.2">
-<h4 data-number="6.4.1.2" class="anchored" data-anchor-id="calculate-recall"><span class="header-section-number">6.4.1.2</span> Calculate Recall:</h4>
-<p>[ = = = = 0.875 , ( 87.5%) ]</p>
-<hr>
-</section>
-</section>
-<section id="advantages-of-recall" class="level3" data-number="6.4.2">
-<h3 data-number="6.4.2" class="anchored" data-anchor-id="advantages-of-recall"><span class="header-section-number">6.4.2</span> <strong>6. Advantages of Recall</strong></h3>
-<ol type="1">
-<li><strong>Captures All Positives</strong>:
+<li>Good
 <ul>
 <li>Recall ensures that the model does not miss positive samples.</li>
-</ul></li>
-<li><strong>Important in Costly Misses</strong>:
-<ul>
 <li>In applications like medical diagnosis, recall is a priority since false negatives are costly.</li>
 </ul></li>
-</ol>
-<hr>
-</section>
-<section id="disadvantages-of-recall" class="level3" data-number="6.4.3">
-<h3 data-number="6.4.3" class="anchored" data-anchor-id="disadvantages-of-recall"><span class="header-section-number">6.4.3</span> <strong>7. Disadvantages of Recall</strong></h3>
-<ol type="1">
-<li><strong>Ignores False Positives</strong>:
+<li>No good
 <ul>
 <li>Recall does not account for how many false positives the model predicts.</li>
 <li>This can lead to overly lenient models that classify many samples as positive to maximize recall.</li>
-</ul></li>
-<li><strong>Poor Choice for Applications Where Precision Matters</strong>:
-<ul>
 <li>In applications like spam detection, focusing solely on recall might result in excessive false positives (e.g., legitimate emails marked as spam).</li>
 </ul></li>
-</ol>
-<hr>
-</section>
-<section id="use-cases-for-recall" class="level3" data-number="6.4.4">
-<h3 data-number="6.4.4" class="anchored" data-anchor-id="use-cases-for-recall"><span class="header-section-number">6.4.4</span> <strong>8. Use Cases for Recall</strong></h3>
-<section id="medical-diagnosis" class="level4" data-number="6.4.4.1">
-<h4 data-number="6.4.4.1" class="anchored" data-anchor-id="medical-diagnosis"><span class="header-section-number">6.4.4.1</span> <strong>Medical Diagnosis</strong>:</h4>
-<ul>
-<li><strong>Why</strong>:
-<ul>
-<li>False negatives mean undiagnosed patients, which can have serious consequences.</li>
-</ul></li>
-<li><strong>Goal</strong>:
-<ul>
-<li>High recall to ensure all patients with the disease are correctly identified.</li>
-</ul></li>
 </ul>
-</section>
-<section id="fraud-detection" class="level4" data-number="6.4.4.2">
-<h4 data-number="6.4.4.2" class="anchored" data-anchor-id="fraud-detection"><span class="header-section-number">6.4.4.2</span> <strong>Fraud Detection</strong>:</h4>
-<ul>
-<li><strong>Why</strong>:
-<ul>
-<li>Missing fraudulent transactions could lead to significant financial losses.</li>
-</ul></li>
-<li><strong>Goal</strong>:
-<ul>
-<li>High recall to flag as many fraudulent transactions as possible.</li>
-</ul></li>
-</ul>
-</section>
-<section id="search-engines" class="level4" data-number="6.4.4.3">
-<h4 data-number="6.4.4.3" class="anchored" data-anchor-id="search-engines"><span class="header-section-number">6.4.4.3</span> <strong>Search Engines</strong>:</h4>
-<ul>
-<li><strong>Why</strong>:
-<ul>
-<li>Ensure all relevant results are retrieved for a query.</li>
-</ul></li>
-<li><strong>Goal</strong>:
-<ul>
-<li>High recall to return all relevant documents, even at the cost of some irrelevant ones.</li>
-</ul></li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="recall-in-imbalanced-datasets" class="level3" data-number="6.4.5">
-<h3 data-number="6.4.5" class="anchored" data-anchor-id="recall-in-imbalanced-datasets"><span class="header-section-number">6.4.5</span> <strong>9. Recall in Imbalanced Datasets</strong></h3>
-<p>Recall is especially useful for <strong>imbalanced datasets</strong> where the positive class is rare. For example: - In disease detection, the number of positive cases (sick patients) is often much smaller than negative cases (healthy patients). Recall ensures that the model captures as many positive cases as possible.</p>
-<hr>
-</section>
-<section id="python-code-example" class="level3" data-number="6.4.6">
-<h3 data-number="6.4.6" class="anchored" data-anchor-id="python-code-example"><span class="header-section-number">6.4.6</span> <strong>10. Python Code Example</strong></h3>
-<section id="using-sklearn" class="level4" data-number="6.4.6.1">
-<h4 data-number="6.4.6.1" class="anchored" data-anchor-id="using-sklearn"><span class="header-section-number">6.4.6.1</span> <strong>Using <code>sklearn</code></strong></h4>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># True labels</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute recall</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> recall_score(y_true, y_pred)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="manual-calculation" class="level4" data-number="6.4.6.2">
-<h4 data-number="6.4.6.2" class="anchored" data-anchor-id="manual-calculation"><span class="header-section-number">6.4.6.2</span> <strong>Manual Calculation</strong></h4>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Confusion matrix components</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>TP <span class="op">=</span> <span class="dv">35</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>FN <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate recall</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FN)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-</section>
-</section>
-<section id="recall-vs-precision" class="level3" data-number="6.4.7">
-<h3 data-number="6.4.7" class="anchored" data-anchor-id="recall-vs-precision"><span class="header-section-number">6.4.7</span> <strong>11. Recall vs Precision</strong></h3>
-<table class="table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 41%">
-<col style="width: 43%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Metric</strong></th>
-<th><strong>What It Measures</strong></th>
-<th><strong>Use Case</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Recall</strong></td>
-<td>How many actual positives were correctly identified.</td>
-<td>Useful when false negatives are costly.</td>
-</tr>
-<tr class="even">
-<td><strong>Precision</strong></td>
-<td>How many positive predictions are correct.</td>
-<td>Useful when false positives are costly.</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="recall-vs-accuracy" class="level3" data-number="6.4.8">
-<h3 data-number="6.4.8" class="anchored" data-anchor-id="recall-vs-accuracy"><span class="header-section-number">6.4.8</span> <strong>12. Recall vs Accuracy</strong></h3>
-<section id="why-not-use-accuracy-instead" class="level4" data-number="6.4.8.1">
-<h4 data-number="6.4.8.1" class="anchored" data-anchor-id="why-not-use-accuracy-instead"><span class="header-section-number">6.4.8.1</span> Why Not Use Accuracy Instead?</h4>
-<p>Accuracy measures overall correctness but fails to account for the balance between true positives and false negatives, which is critical in recall-focused applications.</p>
-</section>
-<section id="example" class="level4" data-number="6.4.8.2">
-<h4 data-number="6.4.8.2" class="anchored" data-anchor-id="example"><span class="header-section-number">6.4.8.2</span> Example:</h4>
-<p>Consider a dataset with 99% negatives and 1% positives: - A model predicting all negatives achieves <strong>99% accuracy</strong>. - However, recall would be <strong>0%</strong> because it fails to identify any positives.</p>
-<hr>
-</section>
-</section>
-<section id="summary" class="level3" data-number="6.4.9">
-<h3 data-number="6.4.9" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.4.9</span> <strong>13. Summary</strong></h3>
-<table class="table">
-<colgroup>
-<col style="width: 21%">
-<col style="width: 78%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Aspect</strong></th>
-<th><strong>Recall</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Definition</strong></td>
-<td>The proportion of actual positives that are correctly predicted.</td>
-</tr>
-<tr class="even">
-<td><strong>Formula</strong></td>
-<td>( = )</td>
-</tr>
-<tr class="odd">
-<td><strong>Use Cases</strong></td>
-<td>Medical diagnosis, fraud detection, search engines.</td>
-</tr>
-<tr class="even">
-<td><strong>Strengths</strong></td>
-<td>Ensures no positive sample is missed; critical when false negatives are costly.</td>
-</tr>
-<tr class="odd">
-<td><strong>Weaknesses</strong></td>
-<td>Ignores false positives; can result in a high false alarm rate.</td>
-</tr>
-</tbody>
-</table>
-<p>Recall is crucial in applications where missing positive instances is significantly more harmful than identifying false positives. However, it is often used alongside precision or F1-score for a balanced evaluation.</p>
+<div id="cell-9" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> recall_score</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># True labels</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>y_true <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predicted labels</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate recall</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>TP <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>FN <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> yt, yp <span class="kw">in</span> <span class="bu">zip</span>(y_true, y_pred) <span class="cf">if</span> yt <span class="op">==</span> <span class="dv">1</span> <span class="kw">and</span> yp <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP <span class="op">/</span> (TP <span class="op">+</span> FN)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute recall</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> recall_score(y_true, y_pred)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall: </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Recall: 0.80
+Recall: 0.80</code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
