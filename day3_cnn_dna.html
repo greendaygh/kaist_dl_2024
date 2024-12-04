@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>KAIST Deep Learning - 4&nbsp; Day3 Convolution Neural Networks with DNA sequence</title>
+<title>KAIST Deep Learning - 4&nbsp; Day3 CNN with DNA sequence examples</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day3_cnn_dna.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day3_cnn_dna.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day3_cnn_dna.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -182,6 +182,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./day5_model_evaluation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day6_seq2seq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Seq2Seq</span></span></a>
   </div>
 </li>
     </ul>
@@ -212,7 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></h1>
 </div>
 
 
@@ -445,7 +451,7 @@ T:   0.70   0.10   0.10   0.10   0.10
 <section id="simulation-data-generation" class="level3" data-number="4.0.5">
 <h3 data-number="4.0.5" class="anchored" data-anchor-id="simulation-data-generation"><span class="header-section-number">4.0.5</span> Simulation data generation</h3>
 <p>Generate 1,000 simulated positive sequences by embedding a motif in the middle of the sequences, and 1,000 negative sequences with random DNA sequences.</p>
-<div id="cell-20" class="cell" data-executioninfo="{&quot;elapsed&quot;:551,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616329999,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="5308cbe2-4126-4bbe-fb35-fced89858523" data-execution_count="37">
+<div id="cell-20" class="cell" data-executioninfo="{&quot;elapsed&quot;:551,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616329999,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="5308cbe2-4126-4bbe-fb35-fced89858523" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>seq_length <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>num_sample <span class="op">=</span> <span class="dv">1000</span></span>
@@ -469,22 +475,22 @@ T:   0.70   0.10   0.10   0.10   0.10
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>['CTAAAGACCGGAACAAAATG',
- 'TGGTGCGCCGGAAATGCGTG',
- 'CAACGTGACTGAATATCTCG',
- 'TCCGTCCGCGGAAACAGAGC']</code></pre>
+<pre><code>['GGATTAAACGGAAACTATTT',
+ 'AAGACTGCCGGATGGGCTCG',
+ 'CCCGAAGGCGGAAACAATCT',
+ 'ATGGAAGCGGGAAATATTCT']</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>['TGTAAGCAATGCGTCTTGCG',
- 'CTCGGCTTATCAGGACGATG',
- 'GGCTTGTATCAGCTAGTCTA',
- 'GGTGTGAGGGTGTCACCGTG']</code></pre>
+<pre><code>['CTACCCTTACTCGCAGGGAA',
+ 'ACTCACTAATTGGATTGAGA',
+ 'AGGTACCTCGCGGCATCTGG',
+ 'GGTATCTACGTGAAGAAGGG']</code></pre>
 </div>
 </div>
 </section>
 <section id="dna-data-preprocessing" class="level3" data-number="4.0.6">
 <h3 data-number="4.0.6" class="anchored" data-anchor-id="dna-data-preprocessing"><span class="header-section-number">4.0.6</span> DNA data preprocessing</h3>
-<div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:571,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616340829,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="1b21955b-952e-492e-ac35-2005af2426fa" data-execution_count="38">
+<div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:571,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616340829,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="1b21955b-952e-492e-ac35-2005af2426fa" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>base_dict <span class="op">=</span> {<span class="st">'A'</span>:<span class="dv">0</span>, <span class="st">'C'</span>:<span class="dv">1</span>, <span class="st">'G'</span>:<span class="dv">2</span>, <span class="st">'T'</span>:<span class="dv">3</span>}</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># response variable for pos</span></span>

@@ -198,7 +198,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day3_cnn_dna.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -211,6 +211,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./day5_model_evaluation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day6_seq2seq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Seq2Seq</span></span></a>
   </div>
 </li>
     </ul>
@@ -227,11 +233,16 @@ window.Quarto = {
   <li><a href="#dimension-3d-4d" id="toc-dimension-3d-4d" class="nav-link" data-scroll-target="#dimension-3d-4d"><span class="header-section-number">5.2</span> Dimension (3D, 4D)</a></li>
   <li><a href="#dot-products" id="toc-dot-products" class="nav-link" data-scroll-target="#dot-products"><span class="header-section-number">5.3</span> Dot products</a></li>
   <li><a href="#dataset-and-dataloader" id="toc-dataset-and-dataloader" class="nav-link" data-scroll-target="#dataset-and-dataloader"><span class="header-section-number">5.4</span> Dataset and Dataloader</a></li>
-  <li><a href="#convolutional-layers" id="toc-convolutional-layers" class="nav-link" data-scroll-target="#convolutional-layers"><span class="header-section-number">5.5</span> Convolutional Layers</a>
+  <li><a href="#convolutional-layers" id="toc-convolutional-layers" class="nav-link" data-scroll-target="#convolutional-layers"><span class="header-section-number">5.5</span> Convolutional Layers</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">5.6</span> Activation Functions</a></li>
+  <li><a href="#pooling-layers" id="toc-pooling-layers" class="nav-link" data-scroll-target="#pooling-layers"><span class="header-section-number">5.7</span> Pooling layers</a></li>
+  <li><a href="#flattening" id="toc-flattening" class="nav-link" data-scroll-target="#flattening"><span class="header-section-number">5.8</span> Flattening</a></li>
+  <li><a href="#fully-connected-layers" id="toc-fully-connected-layers" class="nav-link" data-scroll-target="#fully-connected-layers"><span class="header-section-number">5.9</span> Fully Connected Layers</a></li>
+  <li><a href="#output-layer" id="toc-output-layer" class="nav-link" data-scroll-target="#output-layer"><span class="header-section-number">5.10</span> Output Layer</a></li>
+  <li><a href="#complete-code" id="toc-complete-code" class="nav-link" data-scroll-target="#complete-code"><span class="header-section-number">5.11</span> Complete code</a>
   <ul class="collapse">
-  <li><a href="#complete-code" id="toc-complete-code" class="nav-link" data-scroll-target="#complete-code"><span class="header-section-number">5.5.1</span> Complete code</a></li>
-  <li><a href="#device-for-computation" id="toc-device-for-computation" class="nav-link" data-scroll-target="#device-for-computation"><span class="header-section-number">5.5.2</span> Device for computation</a></li>
-  <li><a href="#run-on-gpu" id="toc-run-on-gpu" class="nav-link" data-scroll-target="#run-on-gpu"><span class="header-section-number">5.5.3</span> Run on GPU</a></li>
+  <li><a href="#device-for-computation" id="toc-device-for-computation" class="nav-link" data-scroll-target="#device-for-computation"><span class="header-section-number">5.11.1</span> Device for computation</a></li>
+  <li><a href="#run-on-gpu" id="toc-run-on-gpu" class="nav-link" data-scroll-target="#run-on-gpu"><span class="header-section-number">5.11.2</span> Run on GPU</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -881,8 +892,9 @@ tensor([[ 0.1340, -0.1981,  0.1160,  0.1986,  0.4438,  0.5583,  0.5739,  0.3242,
 </div>
 </div>
 </section>
-<section id="activation-functions" class="level4" data-number="5.5.0.4">
-<h4 data-number="5.5.0.4" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">5.5.0.4</span> Activation Functions</h4>
+</section>
+<section id="activation-functions" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">5.6</span> Activation Functions</h2>
 <ul>
 <li><p>Introduce non-linearity into the model.</p></li>
 <li><p>Common Function: ReLU (Rectified Linear Unit) is often used because it accelerates training and reduces the chance of vanishing gradients.</p></li>
@@ -961,8 +973,8 @@ tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.2317, 0.2173, 0.3338, 0.0836, 0.0000,
 </div>
 </div>
 </section>
-<section id="pooling-layers" class="level4" data-number="5.5.0.5">
-<h4 data-number="5.5.0.5" class="anchored" data-anchor-id="pooling-layers"><span class="header-section-number">5.5.0.5</span> Pooling layers</h4>
+<section id="pooling-layers" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="pooling-layers"><span class="header-section-number">5.7</span> Pooling layers</h2>
 <ul>
 <li><p>To reduce the spatial dimensions of feature maps. It helps reducing the computational complexity of the network, aggregating features, making the model more robust to small translations or distortions in the input</p></li>
 <li><p>Types:</p>
@@ -1010,8 +1022,8 @@ Output Shape After Pooling: torch.Size([1, 1, 8])</code></pre>
 </div>
 </div>
 </section>
-<section id="flattening" class="level4" data-number="5.5.0.6">
-<h4 data-number="5.5.0.6" class="anchored" data-anchor-id="flattening"><span class="header-section-number">5.5.0.6</span> Flattening</h4>
+<section id="flattening" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="flattening"><span class="header-section-number">5.8</span> Flattening</h2>
 <ul>
 <li>Converts the multidimensional output of a convolutional or pooling layer into a 1D vector.</li>
 <li>This is necessary because the subsequent layers (like fully connected or dense layers) expect inputs to be in a flattened format.</li>
@@ -1058,15 +1070,15 @@ Output Shape (Final): torch.Size([1, 1])</code></pre>
 </div>
 </div>
 </section>
-<section id="fully-connected-layers" class="level4" data-number="5.5.0.7">
-<h4 data-number="5.5.0.7" class="anchored" data-anchor-id="fully-connected-layers"><span class="header-section-number">5.5.0.7</span> Fully Connected Layers</h4>
+<section id="fully-connected-layers" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="fully-connected-layers"><span class="header-section-number">5.9</span> Fully Connected Layers</h2>
 <ul>
 <li>Perform classification or regression based on the extracted features.</li>
 <li>Combines all the features detected by earlier layers to predict an output.</li>
 </ul>
 </section>
-<section id="output-layer" class="level4" data-number="5.5.0.8">
-<h4 data-number="5.5.0.8" class="anchored" data-anchor-id="output-layer"><span class="header-section-number">5.5.0.8</span> Output Layer</h4>
+<section id="output-layer" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="output-layer"><span class="header-section-number">5.10</span> Output Layer</h2>
 <ul>
 <li>Generate the final prediction.</li>
 <li>Activation Functions:
@@ -1134,10 +1146,10 @@ Estimated Total Size (MB): 0.05
 </div>
 </div>
 </section>
-<section id="complete-code" class="level3" data-number="5.5.1">
-<h3 data-number="5.5.1" class="anchored" data-anchor-id="complete-code"><span class="header-section-number">5.5.1</span> Complete code</h3>
-<section id="data" class="level4" data-number="5.5.1.1">
-<h4 data-number="5.5.1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">5.5.1.1</span> Data</h4>
+<section id="complete-code" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="complete-code"><span class="header-section-number">5.11</span> Complete code</h2>
+<section id="data" class="level4" data-number="5.11.0.1">
+<h4 data-number="5.11.0.1" class="anchored" data-anchor-id="data"><span class="header-section-number">5.11.0.1</span> Data</h4>
 <div id="cell-53" class="cell" data-execution_count="137">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -1221,8 +1233,8 @@ Test Labels Shape: (400,)</code></pre>
 </div>
 </div>
 </section>
-<section id="model-and-training" class="level4" data-number="5.5.1.2">
-<h4 data-number="5.5.1.2" class="anchored" data-anchor-id="model-and-training"><span class="header-section-number">5.5.1.2</span> Model and training</h4>
+<section id="model-and-training" class="level4" data-number="5.11.0.2">
+<h4 data-number="5.11.0.2" class="anchored" data-anchor-id="model-and-training"><span class="header-section-number">5.11.0.2</span> Model and training</h4>
 <div id="cell-55" class="cell" data-execution_count="138">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
@@ -1299,8 +1311,8 @@ Epoch 10/10, Loss: 0.0488</code></pre>
 </div>
 </div>
 </section>
-<section id="testing" class="level4" data-number="5.5.1.3">
-<h4 data-number="5.5.1.3" class="anchored" data-anchor-id="testing"><span class="header-section-number">5.5.1.3</span> Testing</h4>
+<section id="testing" class="level4" data-number="5.11.0.3">
+<h4 data-number="5.11.0.3" class="anchored" data-anchor-id="testing"><span class="header-section-number">5.11.0.3</span> Testing</h4>
 <div id="cell-57" class="cell" data-execution_count="139">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create test dataset and dataloader</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>test_dataset <span class="op">=</span> SequenceDataset(test_data, test_labels)</span>
@@ -1332,9 +1344,8 @@ Epoch 10/10, Loss: 0.0488</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="device-for-computation" class="level3" data-number="5.5.2">
-<h3 data-number="5.5.2" class="anchored" data-anchor-id="device-for-computation"><span class="header-section-number">5.5.2</span> Device for computation</h3>
+<section id="device-for-computation" class="level3" data-number="5.11.1">
+<h3 data-number="5.11.1" class="anchored" data-anchor-id="device-for-computation"><span class="header-section-number">5.11.1</span> Device for computation</h3>
 <div id="cell-59" class="cell" data-execution_count="140">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1385,8 +1396,8 @@ Cached GPU memory: 22.00 MB</code></pre>
 </div>
 </div>
 </section>
-<section id="run-on-gpu" class="level3" data-number="5.5.3">
-<h3 data-number="5.5.3" class="anchored" data-anchor-id="run-on-gpu"><span class="header-section-number">5.5.3</span> Run on GPU</h3>
+<section id="run-on-gpu" class="level3" data-number="5.11.2">
+<h3 data-number="5.11.2" class="anchored" data-anchor-id="run-on-gpu"><span class="header-section-number">5.11.2</span> Run on GPU</h3>
 <div id="cell-62" class="cell" data-execution_count="144">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1905,8 +1916,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./day3_cnn_dna.html" class="pagination-link" aria-label="Day3 Convolution Neural Networks with DNA sequence">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span>
+      <a href="./day3_cnn_dna.html" class="pagination-link" aria-label="Day3 CNN with DNA sequence examples">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

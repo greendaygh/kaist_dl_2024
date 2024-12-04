@@ -198,7 +198,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day3_cnn_dna.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -213,6 +213,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day6_seq2seq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Seq2Seq</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -223,18 +229,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#modeling-procedure-testing-vs.-prediction" id="toc-modeling-procedure-testing-vs.-prediction" class="nav-link active" data-scroll-target="#modeling-procedure-testing-vs.-prediction"><span class="header-section-number">3.0.1</span> Modeling procedure (Testing vs.&nbsp;Prediction)</a></li>
-  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">3.0.2</span> Multiple regression</a></li>
-  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">3.0.3</span> Neural networks</a></li>
-  <li><a href="#key-differences-between-linear-regression-and-neural-networks" id="toc-key-differences-between-linear-regression-and-neural-networks" class="nav-link" data-scroll-target="#key-differences-between-linear-regression-and-neural-networks"><span class="header-section-number">3.0.4</span> Key Differences between linear regression and neural networks</a></li>
-  <li><a href="#neural-networks-extension" id="toc-neural-networks-extension" class="nav-link" data-scroll-target="#neural-networks-extension"><span class="header-section-number">3.0.5</span> Neural Networks Extension</a></li>
-  <li><a href="#architecture-of-neural-networks" id="toc-architecture-of-neural-networks" class="nav-link" data-scroll-target="#architecture-of-neural-networks"><span class="header-section-number">3.0.6</span> Architecture of neural networks</a></li>
-  <li><a href="#weights-and-biases" id="toc-weights-and-biases" class="nav-link" data-scroll-target="#weights-and-biases"><span class="header-section-number">3.0.7</span> Weights and Biases:</a></li>
-  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">3.0.8</span> Activation Functions</a></li>
-  <li><a href="#forward-pass" id="toc-forward-pass" class="nav-link" data-scroll-target="#forward-pass"><span class="header-section-number">3.0.9</span> Forward Pass</a></li>
-  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.0.10</span> Loss Function</a></li>
-  <li><a href="#backpropagation-and-training" id="toc-backpropagation-and-training" class="nav-link" data-scroll-target="#backpropagation-and-training"><span class="header-section-number">3.0.11</span> Backpropagation and Training</a></li>
-  <li><a href="#pytorch" id="toc-pytorch" class="nav-link" data-scroll-target="#pytorch"><span class="header-section-number">3.1</span> PyTorch</a></li>
+  <li><a href="#modeling-procedure-testing-vs.-prediction" id="toc-modeling-procedure-testing-vs.-prediction" class="nav-link active" data-scroll-target="#modeling-procedure-testing-vs.-prediction"><span class="header-section-number">3.1</span> Modeling procedure (Testing vs.&nbsp;Prediction)</a></li>
+  <li><a href="#multiple-regression" id="toc-multiple-regression" class="nav-link" data-scroll-target="#multiple-regression"><span class="header-section-number">3.2</span> Multiple regression</a></li>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">3.3</span> Neural networks</a>
+  <ul class="collapse">
+  <li><a href="#key-differences-between-linear-regression-and-neural-networks" id="toc-key-differences-between-linear-regression-and-neural-networks" class="nav-link" data-scroll-target="#key-differences-between-linear-regression-and-neural-networks"><span class="header-section-number">3.3.1</span> Key Differences between linear regression and neural networks</a></li>
+  <li><a href="#neural-networks-extension" id="toc-neural-networks-extension" class="nav-link" data-scroll-target="#neural-networks-extension"><span class="header-section-number">3.3.2</span> Neural Networks Extension</a></li>
+  <li><a href="#architecture-of-neural-networks" id="toc-architecture-of-neural-networks" class="nav-link" data-scroll-target="#architecture-of-neural-networks"><span class="header-section-number">3.3.3</span> Architecture of neural networks</a></li>
+  <li><a href="#weights-and-biases" id="toc-weights-and-biases" class="nav-link" data-scroll-target="#weights-and-biases"><span class="header-section-number">3.3.4</span> Weights and Biases:</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">3.3.5</span> Activation Functions</a></li>
+  <li><a href="#forward-pass" id="toc-forward-pass" class="nav-link" data-scroll-target="#forward-pass"><span class="header-section-number">3.3.6</span> Forward Pass</a></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function"><span class="header-section-number">3.3.7</span> Loss Function</a></li>
+  <li><a href="#backpropagation-and-training" id="toc-backpropagation-and-training" class="nav-link" data-scroll-target="#backpropagation-and-training"><span class="header-section-number">3.3.8</span> Backpropagation and Training</a></li>
+  </ul></li>
+  <li><a href="#pytorch" id="toc-pytorch" class="nav-link" data-scroll-target="#pytorch"><span class="header-section-number">3.4</span> PyTorch</a></li>
   </ul>
 </nav>
     </div>
@@ -260,8 +268,8 @@ window.Quarto = {
 </header>
 
 
-<section id="modeling-procedure-testing-vs.-prediction" class="level3" data-number="3.0.1">
-<h3 data-number="3.0.1" class="anchored" data-anchor-id="modeling-procedure-testing-vs.-prediction"><span class="header-section-number">3.0.1</span> Modeling procedure (Testing vs.&nbsp;Prediction)</h3>
+<section id="modeling-procedure-testing-vs.-prediction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="modeling-procedure-testing-vs.-prediction"><span class="header-section-number">3.1</span> Modeling procedure (Testing vs.&nbsp;Prediction)</h2>
 <ul>
 <li>Modeling for statistical testing (e.g.&nbsp;t-test)
 <ol type="1">
@@ -286,8 +294,8 @@ window.Quarto = {
 </ol></li>
 </ul>
 </section>
-<section id="multiple-regression" class="level3" data-number="3.0.2">
-<h3 data-number="3.0.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">3.0.2</span> Multiple regression</h3>
+<section id="multiple-regression" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="multiple-regression"><span class="header-section-number">3.2</span> Multiple regression</h2>
 <ul>
 <li><p>Multiple Regression is a type of supervised learning where the model assumes a <strong>linear relationship</strong> between the input features <span class="math inline">\(X\)</span> and the target <span class="math inline">\(y\)</span>: <span class="math display">\[
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_p x_p + \epsilon
@@ -300,8 +308,8 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_p x_p + \epsilon
 </ul></li>
 </ul>
 </section>
-<section id="neural-networks" class="level3" data-number="3.0.3">
-<h3 data-number="3.0.3" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">3.0.3</span> Neural networks</h3>
+<section id="neural-networks" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">3.3</span> Neural networks</h2>
 <ul>
 <li>A neural network with no hidden layers and a single output node is essentially a multiple regression model <span class="math display">\[
 y = \sigma(W \cdot X + b)
@@ -315,17 +323,16 @@ y = \sigma(W \cdot X + b)
 <li>Multiple regression can be seen as a very simple neural network</li>
 </ul>
 <p><img src="images/regression.png" class="img-fluid"></p>
-</section>
-<section id="key-differences-between-linear-regression-and-neural-networks" class="level3" data-number="3.0.4">
-<h3 data-number="3.0.4" class="anchored" data-anchor-id="key-differences-between-linear-regression-and-neural-networks"><span class="header-section-number">3.0.4</span> Key Differences between linear regression and neural networks</h3>
+<section id="key-differences-between-linear-regression-and-neural-networks" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="key-differences-between-linear-regression-and-neural-networks"><span class="header-section-number">3.3.1</span> Key Differences between linear regression and neural networks</h3>
 <ul>
 <li><p>Linear vs.&nbsp;non-linear: Neural Networks with hidden layers and non-linear activation functions (e.g., ReLU, sigmoid), they can model highly complex, non-linear relationships.</p></li>
 <li><p>Interactions: Multiple Regression requires manual engineering of interaction terms (e.g., <span class="math inline">\(x_1 \times x_2\)</span>. But Neural Networks automatically learn interactions between features through layers of non-linear transformations.</p></li>
 <li><p>Scale: linear regression is available with low-dimensional features while NN handle high-dimensional inputs, such as images or text.</p></li>
 </ul>
 </section>
-<section id="neural-networks-extension" class="level3" data-number="3.0.5">
-<h3 data-number="3.0.5" class="anchored" data-anchor-id="neural-networks-extension"><span class="header-section-number">3.0.5</span> Neural Networks Extension</h3>
+<section id="neural-networks-extension" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="neural-networks-extension"><span class="header-section-number">3.3.2</span> Neural Networks Extension</h3>
 <p>By introducing hidden layers and non-linear activation functions, neural networks extend regression to capture non-linear relationships: <span class="math display">\[
 y = \sigma(W_2 \cdot \sigma(W_1 \cdot X + b_1) + b_2)
 \]</span> where: - <span class="math inline">\(W_1\)</span> and <span class="math inline">\(W_2\)</span>: Weight matrices for hidden and output layers. - <span class="math inline">\(b_1\)</span> and <span class="math inline">\(b_2\)</span>: Bias terms. - <span class="math inline">\(\sigma\)</span>: Non-linear activation function (e.g., ReLU, sigmoid).</p>
@@ -334,8 +341,8 @@ y = \sigma(W_2 \cdot \sigma(W_1 \cdot X + b_1) + b_2)
 </ul>
 <p><img src="images/nn2.png" class="img-fluid"></p>
 </section>
-<section id="architecture-of-neural-networks" class="level3" data-number="3.0.6">
-<h3 data-number="3.0.6" class="anchored" data-anchor-id="architecture-of-neural-networks"><span class="header-section-number">3.0.6</span> Architecture of neural networks</h3>
+<section id="architecture-of-neural-networks" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="architecture-of-neural-networks"><span class="header-section-number">3.3.3</span> Architecture of neural networks</h3>
 <ul>
 <li>Neurons (Nodes): Basic units of a neural network that take inputs, perform a computation, and pass outputs</li>
 <li>Layers:
@@ -346,16 +353,16 @@ y = \sigma(W_2 \cdot \sigma(W_1 \cdot X + b_1) + b_2)
 </ul></li>
 </ul>
 </section>
-<section id="weights-and-biases" class="level3" data-number="3.0.7">
-<h3 data-number="3.0.7" class="anchored" data-anchor-id="weights-and-biases"><span class="header-section-number">3.0.7</span> Weights and Biases:</h3>
+<section id="weights-and-biases" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="weights-and-biases"><span class="header-section-number">3.3.4</span> Weights and Biases:</h3>
 <ul>
 <li>Weights: Parameters that determine the strength. Adjusted during training</li>
 <li>Biases: Additional parameters added to the input. It allows more flexibility</li>
 </ul>
 <p><img src="images/nn4.png" class="img-fluid"></p>
 </section>
-<section id="activation-functions" class="level3" data-number="3.0.8">
-<h3 data-number="3.0.8" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">3.0.8</span> Activation Functions</h3>
+<section id="activation-functions" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">3.3.5</span> Activation Functions</h3>
 <ul>
 <li>Activation functions introduce non-linearity to the model, enabling it to learn complex patterns.</li>
 <li>Common activation functions include:
@@ -429,15 +436,15 @@ y = \sigma(W_2 \cdot \sigma(W_1 \cdot X + b_1) + b_2)
 </div>
 </div>
 </section>
-<section id="forward-pass" class="level3" data-number="3.0.9">
-<h3 data-number="3.0.9" class="anchored" data-anchor-id="forward-pass"><span class="header-section-number">3.0.9</span> Forward Pass</h3>
+<section id="forward-pass" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="forward-pass"><span class="header-section-number">3.3.6</span> Forward Pass</h3>
 <ul>
 <li>The process of passing input data through the network, layer by layer, to produce an output.</li>
 <li>Each neuron computes a weighted sum of its inputs, adds a bias, and passes the result through an activation function.</li>
 <li>This involves applying a linear transformation.</li>
 </ul>
-<section id="example-of-forward-pass-and-loss-function" class="level4" data-number="3.0.9.1">
-<h4 data-number="3.0.9.1" class="anchored" data-anchor-id="example-of-forward-pass-and-loss-function"><span class="header-section-number">3.0.9.1</span> (Example) of Forward Pass and Loss Function</h4>
+<section id="example-of-forward-pass-and-loss-function" class="level4" data-number="3.3.6.1">
+<h4 data-number="3.3.6.1" class="anchored" data-anchor-id="example-of-forward-pass-and-loss-function"><span class="header-section-number">3.3.6.1</span> (Example) of Forward Pass and Loss Function</h4>
 <p>Let’s consider a simple neural network with: - <strong>1 Input Layer</strong>: 2 input nodes. - <strong>1 Hidden Layer</strong>: 3 nodes with ReLU (Rectified Linear Unit) activation. - <strong>1 Output Layer</strong>: 1 node with sigmoid activation.</p>
 <p><img src="images/nn_ex.png" class="img-fluid"></p>
 <p>The forward pass computes: 1. <strong>Input to Hidden Layer</strong>: <span class="math display">\[
@@ -610,8 +617,8 @@ Final Output (after Sigmoid):
 </div>
 </section>
 </section>
-<section id="loss-function" class="level3" data-number="3.0.10">
-<h3 data-number="3.0.10" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.0.10</span> Loss Function</h3>
+<section id="loss-function" class="level3" data-number="3.3.7">
+<h3 data-number="3.3.7" class="anchored" data-anchor-id="loss-function"><span class="header-section-number">3.3.7</span> Loss Function</h3>
 <ul>
 <li>A measure of how well the neural network’s predictions match the actual data. Common loss functions include Mean Squared Error (MSE) for regression and Cross-Entropy Loss for classification.</li>
 </ul>
@@ -625,14 +632,14 @@ L = \frac{1}{n} || y - \hat{y} ||^2 =  \frac{1}{n}\sum(y_i-\hat{y}_i)^2
 </div>
 </div>
 </section>
-<section id="backpropagation-and-training" class="level3" data-number="3.0.11">
-<h3 data-number="3.0.11" class="anchored" data-anchor-id="backpropagation-and-training"><span class="header-section-number">3.0.11</span> Backpropagation and Training</h3>
+<section id="backpropagation-and-training" class="level3" data-number="3.3.8">
+<h3 data-number="3.3.8" class="anchored" data-anchor-id="backpropagation-and-training"><span class="header-section-number">3.3.8</span> Backpropagation and Training</h3>
 <ul>
 <li>Backpropagation: The process of adjusting weights and biases based on the loss. It uses gradients computed by the chain rule to update these parameters through gradient descent or other optimization algorithms.</li>
 <li>Optimization Algorithm: Techniques like Stochastic Gradient Descent (SGD) or Adam adjust the model parameters to minimize the loss.</li>
 </ul>
-<section id="chain-rule" class="level4" data-number="3.0.11.1">
-<h4 data-number="3.0.11.1" class="anchored" data-anchor-id="chain-rule"><span class="header-section-number">3.0.11.1</span> Chain Rule</h4>
+<section id="chain-rule" class="level4" data-number="3.3.8.1">
+<h4 data-number="3.3.8.1" class="anchored" data-anchor-id="chain-rule"><span class="header-section-number">3.3.8.1</span> Chain Rule</h4>
 <p>Derivative of a composite function <span class="math display">\[
 z = f(g(x))
 \]</span></p>
@@ -757,8 +764,9 @@ Final Predictions:
 </div>
 </section>
 </section>
-<section id="pytorch" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="pytorch"><span class="header-section-number">3.1</span> PyTorch</h2>
+</section>
+<section id="pytorch" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="pytorch"><span class="header-section-number">3.4</span> PyTorch</h2>
 <p>PyTorch is an open-source deep learning framework developed by Facebook’s AI Research lab (FAIR). It is widely used in research and industry due to its dynamic computation graph and ease of use.</p>
 <p>PyTorch Ecosystem Overview:</p>
 <p>torch: The core library for tensor operations and automatic differentiation.<br>
@@ -1309,8 +1317,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./day3_cnn_dna.html" class="pagination-link" aria-label="Day3 Convolution Neural Networks with DNA sequence">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 Convolution Neural Networks with DNA sequence</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./day3_cnn_dna.html" class="pagination-link" aria-label="Day3 CNN with DNA sequence examples">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
