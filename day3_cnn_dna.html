@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>KAIST Deep Learning - 4&nbsp; Day3 CNN with DNA sequence examples</title>
+<title>KAIST Deep Learning - 4&nbsp; Day3 CNN with DNA sequence</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day3_cnn_dna.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./day3_cnn_dna.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day3_cnn_dna.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./day5_model_evaluation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation Metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Day5 Model Evaluation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -200,16 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives"><span class="header-section-number">4.0.1</span> Objectives</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.0.2</span> Data</a></li>
-  <li><a href="#one-hot-encoding" id="toc-one-hot-encoding" class="nav-link" data-scroll-target="#one-hot-encoding"><span class="header-section-number">4.0.3</span> One-hot encoding</a></li>
-  <li><a href="#set-sequence-motif-for-simulation" id="toc-set-sequence-motif-for-simulation" class="nav-link" data-scroll-target="#set-sequence-motif-for-simulation"><span class="header-section-number">4.0.4</span> Set sequence motif for simulation</a></li>
-  <li><a href="#simulation-data-generation" id="toc-simulation-data-generation" class="nav-link" data-scroll-target="#simulation-data-generation"><span class="header-section-number">4.0.5</span> Simulation data generation</a></li>
-  <li><a href="#dna-data-preprocessing" id="toc-dna-data-preprocessing" class="nav-link" data-scroll-target="#dna-data-preprocessing"><span class="header-section-number">4.0.6</span> DNA data preprocessing</a></li>
-  <li><a href="#cnn-model-class" id="toc-cnn-model-class" class="nav-link" data-scroll-target="#cnn-model-class"><span class="header-section-number">4.0.7</span> CNN model class</a></li>
-  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="header-section-number">4.0.8</span> Training</a></li>
-  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">4.0.9</span> Model evaluation</a></li>
-  <li><a href="#training-and-evaluation" id="toc-training-and-evaluation" class="nav-link" data-scroll-target="#training-and-evaluation"><span class="header-section-number">4.0.10</span> Training and evaluation</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives"><span class="header-section-number">4.1</span> Objectives</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4.2</span> Data</a>
+  <ul class="collapse">
+  <li><a href="#one-hot-encoding" id="toc-one-hot-encoding" class="nav-link" data-scroll-target="#one-hot-encoding"><span class="header-section-number">4.2.1</span> One-hot encoding</a></li>
+  <li><a href="#set-sequence-motif-for-simulation" id="toc-set-sequence-motif-for-simulation" class="nav-link" data-scroll-target="#set-sequence-motif-for-simulation"><span class="header-section-number">4.2.2</span> Set sequence motif for simulation</a></li>
+  <li><a href="#simulation-data-generation" id="toc-simulation-data-generation" class="nav-link" data-scroll-target="#simulation-data-generation"><span class="header-section-number">4.2.3</span> Simulation data generation</a></li>
+  <li><a href="#dna-data-preprocessing" id="toc-dna-data-preprocessing" class="nav-link" data-scroll-target="#dna-data-preprocessing"><span class="header-section-number">4.2.4</span> DNA data preprocessing</a></li>
+  </ul></li>
+  <li><a href="#cnn-model" id="toc-cnn-model" class="nav-link" data-scroll-target="#cnn-model"><span class="header-section-number">4.3</span> CNN model</a>
+  <ul class="collapse">
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="header-section-number">4.3.1</span> Training</a></li>
+  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation"><span class="header-section-number">4.3.2</span> Model evaluation</a></li>
+  </ul></li>
+  <li><a href="#training-and-evaluation" id="toc-training-and-evaluation" class="nav-link" data-scroll-target="#training-and-evaluation"><span class="header-section-number">4.4</span> Training and evaluation</a></li>
   </ul>
 </nav>
     </div>
@@ -218,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence examples</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Day3 CNN with DNA sequence</span></h1>
 </div>
 
 
@@ -235,15 +239,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objectives" class="level3" data-number="4.0.1">
-<h3 data-number="4.0.1" class="anchored" data-anchor-id="objectives"><span class="header-section-number">4.0.1</span> Objectives</h3>
+<section id="objectives" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="objectives"><span class="header-section-number">4.1</span> Objectives</h2>
 <ul>
 <li>Developing a CNN Model for classifying sequences</li>
 <li>Example: Developing a model to identify specific DNA motifs bound by an arbitrary transcription factor. The model predicts whether a given transcription factor binds to an input DNA sequence (output: 1) or not (output: 0).”</li>
 </ul>
 </section>
-<section id="data" class="level3" data-number="4.0.2">
-<h3 data-number="4.0.2" class="anchored" data-anchor-id="data"><span class="header-section-number">4.0.2</span> Data</h3>
+<section id="data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="data"><span class="header-section-number">4.2</span> Data</h2>
 <ul>
 <li><p>To train a deep learning model, labeled data is required (though not always necessary in modern self-supervised learning approaches).</p></li>
 <li><p>In sequence analysis, DNA sequences paired with their corresponding phenotypes can serve as labeled data (genotype-phenotype paired data).</p>
@@ -253,9 +257,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Generally, data for statistical analysis is represented as a 2D array, with rows corresponding to samples and columns to variables. In deep learning, data is represented in the same way. The number of samples required depends on the complexity of the model, but typically, at least thousands of samples are needed. Using tens of thousands or more samples is recommended for optimal results.</p></li>
 <li><p>A dataset collected for deep learning is divided into training and test datasets. Sometimes, the training dataset is further split into training and validation datasets for model development and performance evaluation.</p></li>
 </ul>
-</section>
-<section id="one-hot-encoding" class="level3" data-number="4.0.3">
-<h3 data-number="4.0.3" class="anchored" data-anchor-id="one-hot-encoding"><span class="header-section-number">4.0.3</span> One-hot encoding</h3>
+<section id="one-hot-encoding" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="one-hot-encoding"><span class="header-section-number">4.2.1</span> One-hot encoding</h3>
 <ul>
 <li><p>For deep learning, data must be represented numerically in a format that machines can process.</p></li>
 <li><p>One-hot encoding is one of the most widely used methods in deep learning.</p></li>
@@ -347,8 +350,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="set-sequence-motif-for-simulation" class="level3" data-number="4.0.4">
-<h3 data-number="4.0.4" class="anchored" data-anchor-id="set-sequence-motif-for-simulation"><span class="header-section-number">4.0.4</span> Set sequence motif for simulation</h3>
+<section id="set-sequence-motif-for-simulation" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="set-sequence-motif-for-simulation"><span class="header-section-number">4.2.2</span> Set sequence motif for simulation</h3>
 <ul>
 <li>Understanding the concepts of PFM (Position Frequency Matrix) and PWM (Position Weight Matrix) is essential.</li>
 <li>Assuming an alignment of several sequences, the PFM represents the frequency of each nucleotide (A, T, G, C) at specific positions in the sequences, while the PWM represents the proportion of each nucleotide at those positions.</li>
@@ -448,8 +451,8 @@ T:   0.70   0.10   0.10   0.10   0.10
 </figure>
 </div>
 </section>
-<section id="simulation-data-generation" class="level3" data-number="4.0.5">
-<h3 data-number="4.0.5" class="anchored" data-anchor-id="simulation-data-generation"><span class="header-section-number">4.0.5</span> Simulation data generation</h3>
+<section id="simulation-data-generation" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="simulation-data-generation"><span class="header-section-number">4.2.3</span> Simulation data generation</h3>
 <p>Generate 1,000 simulated positive sequences by embedding a motif in the middle of the sequences, and 1,000 negative sequences with random DNA sequences.</p>
 <div id="cell-20" class="cell" data-executioninfo="{&quot;elapsed&quot;:551,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616329999,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="5308cbe2-4126-4bbe-fb35-fced89858523" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -488,8 +491,8 @@ T:   0.70   0.10   0.10   0.10   0.10
 </div>
 </div>
 </section>
-<section id="dna-data-preprocessing" class="level3" data-number="4.0.6">
-<h3 data-number="4.0.6" class="anchored" data-anchor-id="dna-data-preprocessing"><span class="header-section-number">4.0.6</span> DNA data preprocessing</h3>
+<section id="dna-data-preprocessing" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="dna-data-preprocessing"><span class="header-section-number">4.2.4</span> DNA data preprocessing</h3>
 <div id="cell-22" class="cell" data-executioninfo="{&quot;elapsed&quot;:571,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616340829,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="1b21955b-952e-492e-ac35-2005af2426fa" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>base_dict <span class="op">=</span> {<span class="st">'A'</span>:<span class="dv">0</span>, <span class="st">'C'</span>:<span class="dv">1</span>, <span class="st">'G'</span>:<span class="dv">2</span>, <span class="st">'T'</span>:<span class="dv">3</span>}</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -568,8 +571,9 @@ torch.Size([1600, 2])</code></pre>
 </div>
 </div>
 </section>
-<section id="cnn-model-class" class="level3" data-number="4.0.7">
-<h3 data-number="4.0.7" class="anchored" data-anchor-id="cnn-model-class"><span class="header-section-number">4.0.7</span> CNN model class</h3>
+</section>
+<section id="cnn-model" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="cnn-model"><span class="header-section-number">4.3</span> CNN model</h2>
 <div id="cell-27" class="cell" data-executioninfo="{&quot;elapsed&quot;:391,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718616387856,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="8394d97a-bb14-4e7b-c02c-976f8835f870" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
@@ -631,9 +635,8 @@ Estimated Total Size (MB): 0.05
 ----------------------------------------------------------------</code></pre>
 </div>
 </div>
-</section>
-<section id="training" class="level3" data-number="4.0.8">
-<h3 data-number="4.0.8" class="anchored" data-anchor-id="training"><span class="header-section-number">4.0.8</span> Training</h3>
+<section id="training" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="training"><span class="header-section-number">4.3.1</span> Training</h3>
 <div id="cell-29" class="cell" data-executioninfo="{&quot;elapsed&quot;:2915,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617108099,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="96aea657-d7d9-4569-881a-e3c256d7cd94" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 훈련 루프</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">20</span></span>
@@ -677,8 +680,8 @@ Epoch [20/20], Loss: 0.0516</code></pre>
 </div>
 </div>
 </section>
-<section id="model-evaluation" class="level3" data-number="4.0.9">
-<h3 data-number="4.0.9" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">4.0.9</span> Model evaluation</h3>
+<section id="model-evaluation" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="model-evaluation"><span class="header-section-number">4.3.2</span> Model evaluation</h3>
 <div id="cell-31" class="cell" data-executioninfo="{&quot;elapsed&quot;:365,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617327293,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="66c7ede7-5ece-4860-b705-3f3466044a52" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 평가</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
@@ -703,9 +706,10 @@ Epoch [20/20], Loss: 0.0516</code></pre>
 </div>
 </div>
 </section>
-<section id="training-and-evaluation" class="level3" data-number="4.0.10">
-<h3 data-number="4.0.10" class="anchored" data-anchor-id="training-and-evaluation"><span class="header-section-number">4.0.10</span> Training and evaluation</h3>
-<div id="cell-33" class="cell" data-executioninfo="{&quot;elapsed&quot;:25207,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617527334,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="73928f73-3d07-43b9-dbc9-bcded72386d8" data-execution_count="41">
+</section>
+<section id="training-and-evaluation" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="training-and-evaluation"><span class="header-section-number">4.4</span> Training and evaluation</h2>
+<div id="cell-33" class="cell" data-executioninfo="{&quot;elapsed&quot;:25207,&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:1718617527334,&quot;user&quot;:{&quot;displayName&quot;:&quot;haseong kim&quot;,&quot;userId&quot;:&quot;15555769759698200025&quot;},&quot;user_tz&quot;:-540}" data-outputid="73928f73-3d07-43b9-dbc9-bcded72386d8" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 저장을 위한 리스트 초기화</span></span>
@@ -770,214 +774,8 @@ Epoch [20/20], Loss: 0.0516</code></pre>
 <span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Epoch [1/200], Loss: 0.5790, Accuracy: 95.00%
-Epoch [2/200], Loss: 0.3117, Accuracy: 96.25%
-Epoch [3/200], Loss: 0.1510, Accuracy: 98.00%
-Epoch [4/200], Loss: 0.0968, Accuracy: 97.75%
-Epoch [5/200], Loss: 0.0771, Accuracy: 98.00%
-Epoch [6/200], Loss: 0.0696, Accuracy: 97.25%
-Epoch [7/200], Loss: 0.0605, Accuracy: 98.00%
-Epoch [8/200], Loss: 0.0557, Accuracy: 98.00%
-Epoch [9/200], Loss: 0.0577, Accuracy: 98.25%
-Epoch [10/200], Loss: 0.0551, Accuracy: 97.75%
-Epoch [11/200], Loss: 0.0476, Accuracy: 98.50%
-Epoch [12/200], Loss: 0.0437, Accuracy: 97.50%
-Epoch [13/200], Loss: 0.0409, Accuracy: 98.00%
-Epoch [14/200], Loss: 0.0382, Accuracy: 98.00%
-Epoch [15/200], Loss: 0.0367, Accuracy: 97.50%
-Epoch [16/200], Loss: 0.0407, Accuracy: 98.00%
-Epoch [17/200], Loss: 0.0345, Accuracy: 98.00%
-Epoch [18/200], Loss: 0.0343, Accuracy: 98.00%
-Epoch [19/200], Loss: 0.0342, Accuracy: 97.50%
-Epoch [20/200], Loss: 0.0363, Accuracy: 97.50%
-Epoch [21/200], Loss: 0.0305, Accuracy: 98.00%
-Epoch [22/200], Loss: 0.0271, Accuracy: 98.00%
-Epoch [23/200], Loss: 0.0275, Accuracy: 98.00%
-Epoch [24/200], Loss: 0.0250, Accuracy: 98.00%
-Epoch [25/200], Loss: 0.0278, Accuracy: 97.75%
-Epoch [26/200], Loss: 0.0234, Accuracy: 98.00%
-Epoch [27/200], Loss: 0.0214, Accuracy: 97.75%
-Epoch [28/200], Loss: 0.0225, Accuracy: 97.50%
-Epoch [29/200], Loss: 0.0213, Accuracy: 97.25%
-Epoch [30/200], Loss: 0.0199, Accuracy: 97.50%
-Epoch [31/200], Loss: 0.0189, Accuracy: 97.50%
-Epoch [32/200], Loss: 0.0169, Accuracy: 97.00%
-Epoch [33/200], Loss: 0.0186, Accuracy: 97.75%
-Epoch [34/200], Loss: 0.0185, Accuracy: 97.00%
-Epoch [35/200], Loss: 0.0149, Accuracy: 98.00%
-Epoch [36/200], Loss: 0.0147, Accuracy: 97.50%
-Epoch [37/200], Loss: 0.0142, Accuracy: 97.00%
-Epoch [38/200], Loss: 0.0131, Accuracy: 97.50%
-Epoch [39/200], Loss: 0.0139, Accuracy: 97.50%
-Epoch [40/200], Loss: 0.0126, Accuracy: 97.75%
-Epoch [41/200], Loss: 0.0120, Accuracy: 97.75%
-Epoch [42/200], Loss: 0.0099, Accuracy: 97.75%
-Epoch [43/200], Loss: 0.0114, Accuracy: 97.50%
-Epoch [44/200], Loss: 0.0092, Accuracy: 97.75%
-Epoch [45/200], Loss: 0.0086, Accuracy: 97.50%
-Epoch [46/200], Loss: 0.0077, Accuracy: 97.50%
-Epoch [47/200], Loss: 0.0072, Accuracy: 97.25%
-Epoch [48/200], Loss: 0.0088, Accuracy: 97.50%
-Epoch [49/200], Loss: 0.0095, Accuracy: 97.25%
-Epoch [50/200], Loss: 0.0083, Accuracy: 97.00%
-Epoch [51/200], Loss: 0.0065, Accuracy: 97.25%
-Epoch [52/200], Loss: 0.0061, Accuracy: 97.50%
-Epoch [53/200], Loss: 0.0049, Accuracy: 97.50%
-Epoch [54/200], Loss: 0.0058, Accuracy: 97.50%
-Epoch [55/200], Loss: 0.0043, Accuracy: 97.50%
-Epoch [56/200], Loss: 0.0043, Accuracy: 97.75%
-Epoch [57/200], Loss: 0.0043, Accuracy: 97.75%
-Epoch [58/200], Loss: 0.0040, Accuracy: 97.50%
-Epoch [59/200], Loss: 0.0034, Accuracy: 97.50%
-Epoch [60/200], Loss: 0.0040, Accuracy: 97.50%
-Epoch [61/200], Loss: 0.0038, Accuracy: 97.50%
-Epoch [62/200], Loss: 0.0034, Accuracy: 97.50%
-Epoch [63/200], Loss: 0.0028, Accuracy: 97.50%
-Epoch [64/200], Loss: 0.0027, Accuracy: 97.50%
-Epoch [65/200], Loss: 0.0025, Accuracy: 97.75%
-Epoch [66/200], Loss: 0.0024, Accuracy: 97.50%
-Epoch [67/200], Loss: 0.0023, Accuracy: 97.75%
-Epoch [68/200], Loss: 0.0024, Accuracy: 97.75%
-Epoch [69/200], Loss: 0.0025, Accuracy: 97.50%
-Epoch [70/200], Loss: 0.0020, Accuracy: 97.50%
-Epoch [71/200], Loss: 0.0018, Accuracy: 97.50%
-Epoch [72/200], Loss: 0.0019, Accuracy: 97.50%
-Epoch [73/200], Loss: 0.0018, Accuracy: 97.50%
-Epoch [74/200], Loss: 0.0017, Accuracy: 97.50%
-Epoch [75/200], Loss: 0.0015, Accuracy: 97.50%
-Epoch [76/200], Loss: 0.0016, Accuracy: 97.50%
-Epoch [77/200], Loss: 0.0016, Accuracy: 97.50%
-Epoch [78/200], Loss: 0.0014, Accuracy: 97.50%
-Epoch [79/200], Loss: 0.0013, Accuracy: 97.50%
-Epoch [80/200], Loss: 0.0014, Accuracy: 97.50%
-Epoch [81/200], Loss: 0.0013, Accuracy: 97.50%
-Epoch [82/200], Loss: 0.0012, Accuracy: 97.50%
-Epoch [83/200], Loss: 0.0012, Accuracy: 97.50%
-Epoch [84/200], Loss: 0.0012, Accuracy: 97.75%
-Epoch [85/200], Loss: 0.0011, Accuracy: 97.50%
-Epoch [86/200], Loss: 0.0010, Accuracy: 97.50%
-Epoch [87/200], Loss: 0.0010, Accuracy: 97.50%
-Epoch [88/200], Loss: 0.0010, Accuracy: 97.50%
-Epoch [89/200], Loss: 0.0009, Accuracy: 97.50%
-Epoch [90/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [91/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [92/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [93/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [94/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [95/200], Loss: 0.0008, Accuracy: 97.50%
-Epoch [96/200], Loss: 0.0007, Accuracy: 97.50%
-Epoch [97/200], Loss: 0.0007, Accuracy: 97.50%
-Epoch [98/200], Loss: 0.0007, Accuracy: 97.50%
-Epoch [99/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [100/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [101/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [102/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [103/200], Loss: 0.0006, Accuracy: 97.50%
-Epoch [104/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [105/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [106/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [107/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [108/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [109/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [110/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [111/200], Loss: 0.0005, Accuracy: 97.50%
-Epoch [112/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [113/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [114/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [115/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [116/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [117/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [118/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [119/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [120/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [121/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [122/200], Loss: 0.0004, Accuracy: 97.50%
-Epoch [123/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [124/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [125/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [126/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [127/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [128/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [129/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [130/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [131/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [132/200], Loss: 0.0003, Accuracy: 97.50%
-Epoch [133/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [134/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [135/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [136/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [137/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [138/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [139/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [140/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [141/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [142/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [143/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [144/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [145/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [146/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [147/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [148/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [149/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [150/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [151/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [152/200], Loss: 0.0002, Accuracy: 97.50%
-Epoch [153/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [154/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [155/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [156/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [157/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [158/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [159/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [160/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [161/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [162/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [163/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [164/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [165/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [166/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [167/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [168/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [169/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [170/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [171/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [172/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [173/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [174/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [175/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [176/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [177/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [178/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [179/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [180/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [181/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [182/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [183/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [184/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [185/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [186/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [187/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [188/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [189/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [190/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [191/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [192/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [193/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [194/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [195/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [196/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [197/200], Loss: 0.0001, Accuracy: 97.00%
-Epoch [198/200], Loss: 0.0001, Accuracy: 97.50%
-Epoch [199/200], Loss: 0.0001, Accuracy: 97.25%
-Epoch [200/200], Loss: 0.0001, Accuracy: 97.00%</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="day3_cnn_dna_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<div class="cell-output cell-output-error">
+<pre><code>NameError: name 'model' is not defined</code></pre>
 </div>
 </div>
 
