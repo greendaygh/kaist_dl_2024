@@ -508,9 +508,10 @@ source: ['Q', 'T', 'L', 'Q', 'C', 'M', 'T', 'R', 'M', 'F']</code></pre>
 <li>The actual token from the target sequence as input.</li>
 <li>The hidden states from the previous step (or from the encoder for the first step).</li>
 </ul></li>
-<li>Teacher forcing speeds up training but may cause discrepancies during inference.</li>
+<li>Teacher forcing speeds up training but may cause discrepancies during inference</li>
 </ul>
-<div id="cell-19" class="cell" data-execution_count="128">
+<p><img src="images/decoder2.png" class="img-fluid"></p>
+<div id="cell-20" class="cell" data-execution_count="128">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -553,7 +554,7 @@ Output logits: tensor([[-0.2007,  0.2641, -0.1266, -0.4002,  0.3567,  0.4583, -0
        grad_fn=&lt;AddmmBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="168">
+<div id="cell-21" class="cell" data-execution_count="168">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
@@ -661,7 +662,7 @@ Epoch 190/200, Loss: 9.6259, Accuracy: 0.5556
 Epoch 200/200, Loss: 8.9172, Accuracy: 0.6556</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="169">
+<div id="cell-22" class="cell" data-execution_count="169">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">## plot the loss and accuracy</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -692,7 +693,7 @@ Epoch 200/200, Loss: 8.9172, Accuracy: 0.6556</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="170">
+<div id="cell-23" class="cell" data-execution_count="170">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the model</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(torch.load(<span class="st">"seq2seq_model.pth"</span>, weights_only<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -745,7 +746,7 @@ Target sequence: ['P', 'T', 'V', 'G', 'H', 'E', 'W', 'L', 'R', 'M']
 Predic sequence: ['A', 'G', 'I', 'C', 'E', 'E', 'E', 'E', 'E', 'M']</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="167">
+<div id="cell-24" class="cell" data-execution_count="171">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the model</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model.load_state_dict(torch.load(<span class="st">"seq2seq_model.pth"</span>, weights_only<span class="op">=</span><span class="va">False</span>))</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
@@ -769,7 +770,7 @@ Predic sequence: ['A', 'G', 'I', 'C', 'E', 'E', 'E', 'E', 'E', 'M']</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Source Sequence: ['T', 'P', 'R', 'T', 'S', 'E', 'L', 'T', 'V', 'V']
 Target Sequence: ['T', 'P', 'N', 'T', 'S', 'E', 'L', 'T', 'V', 'V']
-Predicted Sequence: ['A', 'C', 'C', 'R', 'R', 'L', 'M', 'L', 'H', 'F']</code></pre>
+Predicted Sequence: ['A', 'P', 'T', 'W', 'T', 'Q', 'M', 'M', 'M', 'M']</code></pre>
 </div>
 </div>
 
