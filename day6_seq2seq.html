@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -194,6 +223,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="./day7_seq2seq_aa.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Day7 Seq2Seq with AA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./day8_attention.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Day8 seq2seq with attention</span></span></a>
   </div>
 </li>
     </ul>
@@ -611,8 +646,12 @@ Hidden states (NumPy):
  [-0.99742254  0.56102461  0.62906189  0.39046593  0.99953853]]</code></pre>
 </div>
 </div>
-<p><img src="images/rnn_dim.png" class="img-fluid"></p>
-<div id="cell-23" class="cell">
+<p><img src="images/rnn_dim2.png" class="img-fluid"></p>
+<ul>
+<li><span class="math inline">\(D_h\)</span>: hidden dimension</li>
+<li><span class="math inline">\(d\)</span>: embedding dimension</li>
+</ul>
+<div id="cell-24" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -626,24 +665,27 @@ Hidden states (NumPy):
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Process sequence</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>output, hidden <span class="op">=</span> rnn(emb_sequence_tensor)</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Output states:"</span>)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(output)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hidden)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>torch.Size([1, 10, 2])
 Output states:
-tensor([[[ 0.5049,  0.1469,  0.0726,  0.4769, -0.0408],
-         [-0.0964,  0.5451, -0.2459,  0.2843, -0.2156],
-         [ 0.6120,  0.6717, -0.2687,  0.5920, -0.3996],
-         [ 0.6601,  0.2275,  0.2436,  0.8083, -0.2617],
-         [-0.2582,  0.0174, -0.0960,  0.2661,  0.1580],
-         [ 0.4932,  0.2232, -0.1469,  0.3265,  0.0755],
-         [-0.1702,  0.0664, -0.4214,  0.1334,  0.3371],
-         [ 0.4903,  0.3769, -0.3761,  0.3053,  0.1079],
-         [ 0.8995,  0.6985,  0.5925,  0.9079, -0.7493],
-         [ 0.2446,  0.4215,  0.4886,  0.7592, -0.6051]]],
-       grad_fn=&lt;TransposeBackward1&gt;)</code></pre>
+tensor([[[ 0.2015, -0.3891, -0.2238, -0.3205,  0.1379],
+         [-0.1089, -0.6302, -0.6247,  0.0182, -0.5907],
+         [-0.0637, -0.6566, -0.3355, -0.2445, -0.5064],
+         [ 0.3808,  0.0544, -0.1390, -0.5881, -0.0045],
+         [ 0.3947, -0.0715, -0.5845, -0.1432, -0.3642],
+         [ 0.1799, -0.2653, -0.3940, -0.1741, -0.1946],
+         [ 0.1950, -0.0358, -0.6519, -0.0865, -0.7135],
+         [ 0.2639, -0.3388, -0.4425, -0.1536, -0.5388],
+         [ 0.1902, -0.5352,  0.2128, -0.5579,  0.6247],
+         [ 0.0081, -0.5227, -0.2685, -0.3712,  0.4548]]],
+       grad_fn=&lt;TransposeBackward1&gt;)
+tensor([[[ 0.0081, -0.5227, -0.2685, -0.3712,  0.4548]]],
+       grad_fn=&lt;StackBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="36">
+<div id="cell-25" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the encoder class</span></span>
