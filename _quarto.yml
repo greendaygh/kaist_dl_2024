@@ -15,6 +15,13 @@ book:
   chapters:
     - index.qmd
     - day1_optimization.ipynb
+    - day2_neural_networks.ipynb
+    - day3_cnn_dna.ipynb
+    - day4_cnn.ipynb
+    - day5_model_evaluation.ipynb
+    - day6_seq2seq.ipynb
+    - day7_seq2seq_aa.ipynb
+    - day8_attention.ipynb
   
 
 format:
